@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace ZueroTopBot.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class BotController : Controller
     {
         // GET api/values
         [HttpGet]

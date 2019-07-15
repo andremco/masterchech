@@ -1,7 +1,8 @@
 ﻿namespace Core.Enum
 {
-    public enum ResponseBot
+    public enum ResponseForUser
     {
+        None,
         Trouxa,
     }
 }

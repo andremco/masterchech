@@ -5,21 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 
 namespace ZueroTopBot.Middlewares
 {
     public class APIKeyMiddleware
     {
+        private IConfiguration _configuration;
+
         private readonly RequestDelegate _next;
 
-        private IConfiguration _configuration;
+        public APIKeyMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
 
         IConfiguration GetValidKeyAppSettings()
         {
             return Program.ConfigurationBuilder();
         }
 
-        public async Task Invoke(HttpContext context)
+        public Task Invoke(HttpContext context)
         {
             _configuration = GetValidKeyAppSettings();
 
@@ -45,12 +51,14 @@ namespace ZueroTopBot.Middlewares
 
             if (!validKey)
             {
+                var json = JsonConvert.SerializeObject(new { result = "Something wrong with your request. Possible Api Key! :(" });
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync("Something wrong with your request. Possible Api Key! :(");
-                return;
+                context.Response.WriteAsync(json);
+
+                return Task.FromResult<object>(null);
             }
 
-            await _next(context);
+            return _next(context);
         }
     }
 }
