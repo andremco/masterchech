@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.PlatformAbstractions;
+using Swashbuckle.AspNetCore.Swagger;
+using ZueroTopBot.Middlewares;
+using ZueroTopBot.Filters;
 
 namespace ZueroTopBot
 {
-    //https://medium.com/@fernando.abreu/utilizando-log-em-asp-net-core-171e90732ec5
     public class Startup
     {
         public IConfiguration Configuration { get; }
@@ -28,6 +26,25 @@ namespace ZueroTopBot
             services.AddLogging(builder => builder
                 .AddConsole()
                 .AddDebug());
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Title = "Zuero Top Bot Telegram",
+                        Version = "v1",
+                        Description = "API with operations for bot",
+                        Contact = new Contact
+                        {
+                            Name = "André Militão Costa",
+                            Url = "https://github.com/andremco"
+                        }
+                    });
+
+                c.OperationFilter<HeaderKeyFilterSwagger>();
+            });
+
             services.AddMvc();
         }
 
@@ -38,6 +55,15 @@ namespace ZueroTopBot
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "Zuero Top Bot");
+            });
+
+            app.UseMiddleware<APIKeyMiddleware>();
 
             app.UseMvc();
         }
