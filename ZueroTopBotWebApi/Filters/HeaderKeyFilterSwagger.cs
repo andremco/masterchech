@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ZueroTopBot.Filters
+namespace ZueroTopBotWebApi.Filters
 {
     public class HeaderKeyFilterSwagger : IOperationFilter
     {

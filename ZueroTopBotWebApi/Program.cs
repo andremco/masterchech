@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
-namespace ZueroTopBot
+namespace ZueroTopBotWebApi
 {
     public class Program
     {
@@ -59,7 +59,6 @@ namespace ZueroTopBot
 
             BotClient.OnMessage += Bot_OnMessage;
             BotClient.StartReceiving();
-            Thread.Sleep(int.MaxValue);
         }
 
         static async void Bot_OnMessage(object sender, MessageEventArgs e)
