@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using ZueroTopBotWebApi.BotResponse;
 
 namespace ZueroTopBotWebApi
 {
@@ -69,25 +70,30 @@ namespace ZueroTopBotWebApi
             {
                 var business = new MessageOnShipBusiness();
 
+                if (BotResponse.BotResponse.IsResponseNextTimeForTrouxa)
+                {
+                    var badLanguage = business.GetBadLanguage();
+                    BotResponse.BotResponse.ResponseNextTrouxa(BotClient, e.Message.Chat, badLanguage);
+                    BotResponse.BotResponse.IsResponseNextTimeForTrouxa = false;
+                    return;
+                }
+
                 if (business.IsCommandForBot(text))
                 {
-                    Logger.LogInformation($"Received a text message for user {e.Message.From}.");
+                    Logger.LogInformation($"Received a text message for user - {e.Message.From.Id} {e.Message.From.FirstName} {e.Message.From.LastName}.");
 
-                    var responseForUser = business.CommandForBot(text);
+                    var responseForUserEnum = business.CommandForBot(text);
 
-                    switch (responseForUser)
+                    switch (responseForUserEnum)
                     {
-                        case ResponseForUser.Trouxa:
-
+                        case ResponseForUserEnum.GustavoTrouxa:
                             var responseTrouxa = business.ResponseTrouxa();
+                            BotResponse.BotResponse.ResponseTrouxa(BotClient, e.Message.Chat, responseTrouxa);
+                            break;
 
-                            foreach (var message in responseTrouxa)
-                            {
-                                await BotClient.SendTextMessageAsync(
-                                        chatId: e.Message.Chat,
-                                        text: message
-                                );
-                            }
+                        case ResponseForUserEnum.ProximoTrouxa:
+                            BotResponse.BotResponse.IsResponseNextTimeForTrouxa = true;
+                            BotResponse.BotResponse.ResponseInfoOfVictim(BotClient, e.Message.Chat);
                             break;
                     }
                 }

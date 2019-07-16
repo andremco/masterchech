@@ -1,8 +1,9 @@
 ﻿namespace Core.Enum
 {
-    public enum ResponseForUser
+    public enum ResponseForUserEnum
     {
         None,
-        Trouxa,
+        GustavoTrouxa,
+        ProximoTrouxa,
     }
 }

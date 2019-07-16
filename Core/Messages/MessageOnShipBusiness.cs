@@ -5,9 +5,17 @@ namespace Core.Messages
 {
     public class MessageOnShipBusiness
     {
+        private string[] _responseBadLanguage {
+            get{
+                return new string[] { "um bocó", "um trouxa", "um sfilkis", "um vacilão",
+                    "um tonto", "um tapado", "uma besta", "uma goiaba", "uma cibola",
+                    "um miojo", "uma peteca", "uma laranja", "um bolo" };
+            }
+        }
+
         private string[] _responseTrouxa {
             get{
-                var payload = new string[] { "bocó", "trouxa", "sfilkis", "vacilão" };
+                var payload = _responseBadLanguage;
 
                 var randomNumber = new Random().Next(payload.Length);
 
@@ -21,16 +29,20 @@ namespace Core.Messages
             }
         }
 
-        public ResponseForUser CommandForBot(string value)
+        public ResponseForUserEnum CommandForBot(string value)
         {
             switch (value.ToLower())
             {
                 case "/trouxa":
                 case "/trouxa@zuerotopbot":
-                    return ResponseForUser.Trouxa;
+                    return ResponseForUserEnum.GustavoTrouxa;
+
+                case "/proximotrouxa":
+                case "/proximotrouxa@zuerotopbot":
+                    return ResponseForUserEnum.ProximoTrouxa;
 
                 default:
-                    return ResponseForUser.None;
+                    return ResponseForUserEnum.None;
             }
         }
 
@@ -42,6 +54,10 @@ namespace Core.Messages
                 case "/trouxa@zuerotopbot":
                     return true;
 
+                case "/proximotrouxa":
+                case "/proximotrouxa@zuerotopbot":
+                    return true;
+
                 default:
                     return false;
             }
@@ -50,6 +66,15 @@ namespace Core.Messages
         public string[] ResponseTrouxa()
         {
             return _responseTrouxa;
+        }
+
+        public string GetBadLanguage()
+        {
+            var payload = _responseBadLanguage;
+
+            var randomNumber = new Random().Next(payload.Length);
+
+            return _responseBadLanguage[randomNumber];
         }
     }
 }

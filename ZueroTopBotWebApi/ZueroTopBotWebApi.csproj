@@ -12,6 +12,7 @@
     <Folder Include="wwwroot\" />
     <Folder Include="Middlewares\" />
     <Folder Include="Filters\" />
+    <Folder Include="BotResponse\" />
   </ItemGroup>
 
   <ItemGroup>
