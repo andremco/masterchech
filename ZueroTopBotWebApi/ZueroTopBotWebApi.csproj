@@ -13,6 +13,7 @@
     <Folder Include="Middlewares\" />
     <Folder Include="Filters\" />
     <Folder Include="BotResponse\" />
+    <Folder Include="BotControl\" />
   </ItemGroup>
 
   <ItemGroup>

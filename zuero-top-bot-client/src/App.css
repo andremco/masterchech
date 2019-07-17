@@ -31,3 +31,39 @@
     transform: rotate(360deg);
   }
 }
+
+/** My styles swagg bro  **/
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.footer
+{
+    background-color: #282c34;
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    height:50px;
+    margin-bottom:0px;
+}
+
+.footer p{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  color: #61dafb;
+}
+
+.app-navbar{
+  background-color: #282c34;
+}
+
+.app-navbar-brand{
+  color: #61dafb !important;
+}

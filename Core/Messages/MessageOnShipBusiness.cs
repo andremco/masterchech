@@ -5,7 +5,7 @@ namespace Core.Messages
 {
     public class MessageOnShipBusiness
     {
-        private string[] _responseBadLanguage {
+        private string[] _responsePhrases {
             get{
                 return new string[] { "um bocó", "um trouxa", "um sfilkis", "um vacilão",
                     "um tonto", "um tapado", "uma besta", "uma goiaba", "uma cibola",
@@ -15,7 +15,7 @@ namespace Core.Messages
 
         private string[] _responseTrouxa {
             get{
-                var payload = _responseBadLanguage;
+                var payload = _responsePhrases;
 
                 var randomNumber = new Random().Next(payload.Length);
 
@@ -68,13 +68,13 @@ namespace Core.Messages
             return _responseTrouxa;
         }
 
-        public string GetBadLanguage()
+        public string GetPhrase()
         {
-            var payload = _responseBadLanguage;
+            var payload = _responsePhrases;
 
             var randomNumber = new Random().Next(payload.Length);
 
-            return _responseBadLanguage[randomNumber];
+            return _responsePhrases[randomNumber];
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -8,11 +8,7 @@ namespace ZueroTopBotWebApi.BotResponse
     {
         public static bool IsResponseNextTimeForTrouxa;
 
-        public BotResponse()
-        {
-        }
-
-        public static async void ResponseTrouxa(ITelegramBotClient botClient, Chat chat, string[] responseTrouxa)
+        public static async Task ResponseTrouxa(ITelegramBotClient botClient, Chat chat, string[] responseTrouxa)
         {
             foreach (var message in responseTrouxa)
             {
@@ -23,7 +19,7 @@ namespace ZueroTopBotWebApi.BotResponse
             }
         }
 
-        public static async void ResponseInfoOfVictim(ITelegramBotClient botClient, Chat chat)
+        public static async Task ResponseInfoOfVictim(ITelegramBotClient botClient, Chat chat)
         {
             await botClient.SendTextMessageAsync(
                         chatId: chat,
@@ -31,11 +27,11 @@ namespace ZueroTopBotWebApi.BotResponse
             );
         }
 
-        public static async void ResponseNextTrouxa(ITelegramBotClient botClient, Chat chat, string badLanguage)
+        public static async Task ResponseNextTrouxa(ITelegramBotClient botClient, Chat chat, string phrase)
         {
             await botClient.SendTextMessageAsync(
                 chatId: chat,
-                text: "É " + badLanguage
+                text: "É " + phrase
             );
         }
     }
