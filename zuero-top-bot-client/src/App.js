@@ -1,40 +1,8 @@
 import React from 'react';
-import {
-  Table,
-  Navbar,
-  FormGroup,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  Input,
-  Label,
-  Button,
-  DropdownItem } from 'reactstrap';
-import logo from './logo.svg';
+import { Navbar, FormGroup, NavbarBrand, Input, Label, Button } from 'reactstrap';
+import TableList from "./components/TableList";
+import Form from "./components/Form";
 import './App.css';
-import IconActions from './components/IconActions';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 function App(){
   return (<div>
@@ -44,59 +12,8 @@ function App(){
     </Navbar>
     <div className="container d-flex h-100">
       <div className="align-self-center w-100">
-          <div className="col-lg-6 col-md-12 mx-auto">
-            <div /*className="table-responsive-sm"*/ style={ { marginTop: "80px" } }>
-              <Table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Categoria</th>
-                    <th>Descrição</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td><IconActions></IconActions></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td><IconActions></IconActions></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td><IconActions></IconActions></td>
-                  </tr>
-                </tbody>
-              </Table>            
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-12 mx-auto">
-            <FormGroup>
-              <Label for="exampleSelect">Select</Label>
-              <Input type="select" name="select" id="exampleSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="exampleText">Text Area</Label>
-              <Input type="textarea" name="text" id="exampleText" />
-            </FormGroup>
-            <FormGroup>
-              <Button outline color="info" style={{textAlign: "right"}}>Enviar</Button>      
-            </FormGroup>            
-          </div>
+          <TableList></TableList> 
+          <Form></Form>
       </div>
     </div>
     <div className="footer">
