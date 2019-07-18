@@ -2,17 +2,18 @@ import React from 'react';
 import {
   Table,
   Navbar,
-  NavbarToggler,
+  FormGroup,
   NavbarBrand,
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
+  Input,
+  Label,
+  Button,
   DropdownItem } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
+import IconActions from './components/IconActions';
 
 // function App() {
 //   return (
@@ -59,24 +60,42 @@ function App(){
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
-                    <td> - </td>
+                    <td><IconActions></IconActions></td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
-                    <td> - </td>
+                    <td><IconActions></IconActions></td>
                   </tr>
                   <tr>
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>the Bird</td>
-                    <td> - </td>
+                    <td><IconActions></IconActions></td>
                   </tr>
                 </tbody>
               </Table>            
             </div>
-              
+          </div>
+          <div className="col-lg-6 col-md-12 mx-auto">
+            <FormGroup>
+              <Label for="exampleSelect">Select</Label>
+              <Input type="select" name="select" id="exampleSelect">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleText">Text Area</Label>
+              <Input type="textarea" name="text" id="exampleText" />
+            </FormGroup>
+            <FormGroup>
+              <Button outline color="info" style={{textAlign: "right"}}>Enviar</Button>      
+            </FormGroup>            
           </div>
       </div>
     </div>

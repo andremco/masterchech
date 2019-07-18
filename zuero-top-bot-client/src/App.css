@@ -67,3 +67,7 @@
 .app-navbar-brand{
   color: #61dafb !important;
 }
+
+.pointer{
+  cursor: pointer;
+}
