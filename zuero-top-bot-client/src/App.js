@@ -7,8 +7,8 @@ import './App.css';
 function App(){
   return (<div>
     <Navbar className="app-navbar fixed-top">
-      {/* <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="app-navbar-brand">@</NavbarBrand> */}
-      <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="app-navbar-brand">Receitas</NavbarBrand>
+      <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="app-navbar-brand">@ZueroTopBot</NavbarBrand>
+      {/* <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="app-navbar-brand">Receitas</NavbarBrand> */}
     </Navbar>
     <div className="container d-flex h-100">
       <div className="align-self-center w-100">
@@ -17,8 +17,8 @@ function App(){
       </div>
     </div>
     <div className="footer">
-      {/* <p>Bot for telegram &#129302;</p> */}
-      <p>Receitas &#129302;</p>
+      <p>Bot for telegram &#129302;</p>
+      {/* <p>Receitas &#129302;</p> */}
     </div>
   </div>);
 }

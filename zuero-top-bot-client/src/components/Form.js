@@ -65,7 +65,7 @@ class Form extends React.Component {
                     onBlur={props.handleBlur} value={props.values.description} invalid={(props.errors.description) ? true : false}/>
                     {props.errors.description && <FormFeedback>{props.errors.description}</FormFeedback>}
                 </FormGroup>
-                <FormGroup>
+                <FormGroup style={{height: "80px"}}>
                     <Button outline color="info" style={{float: "right"}} disabled={props.isSubmitting}>Enviar</Button>      
                 </FormGroup> 
             </form>
