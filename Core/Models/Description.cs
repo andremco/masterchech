@@ -9,6 +9,8 @@ namespace Core.Models
     {
         public int Id { get; set; }
 
+        public int CategoryId { get; set; }
+
         [Column("Description")]
         public string Descript { get; set; }
 

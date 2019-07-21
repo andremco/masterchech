@@ -8,13 +8,13 @@ namespace Core.Repositories
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
-        internal Context.Context context;
-        internal DbSet<TEntity> dbSet;
+        private readonly Context.Context _context;
+        private readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(Context.Context context)
         {
-            this.context = context;
-            dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> Get(
@@ -22,7 +22,7 @@ namespace Core.Repositories
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
                 query = query.Where(filter);
@@ -44,33 +44,33 @@ namespace Core.Repositories
 
         public virtual TEntity GetByID(object id)
         {
-            return dbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
-            dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
-            Delete(entityToDelete);
+            TEntity entityToDelete = _dbSet.Find(id);
+            if (entityToDelete != null) Delete(entityToDelete);
         }
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                dbSet.Attach(entityToDelete);
+                _dbSet.Attach(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);
+            _dbSet.Remove(entityToDelete);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            _dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

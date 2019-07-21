@@ -25,29 +25,24 @@ namespace ZueroTopBotWebApi.Controllers
 
             if (categories != null)
             {
-                return Ok(categories);
+                return Response(categories);
             }
 
-            return Ok();
+            return Response();
         }
 
         // GET api/category/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            if (id == 0)
-            {
-                return Ok(new string[] { "Id inválido!" });
-            }
-
             var category = _uow.CategoryRepository.GetByID(id);
 
             if (category != null)
             {
-                return Ok(category);
+                return Response(category);
             }
 
-            return Ok();
+            return Response();
         }
 
         // POST api/category
@@ -61,10 +56,9 @@ namespace ZueroTopBotWebApi.Controllers
                     Name = categoryVm.Name,
                     RegisterRecord = DateTime.Now
                 };
+                //TODO validar para não criar uma mesma categoria através do nome
                 _uow.CategoryRepository.Insert(category);
                 _uow.Save();
-
-                return Response();
             }
 
             return Response();
@@ -72,14 +66,31 @@ namespace ZueroTopBotWebApi.Controllers
 
         // PUT api/category
         [HttpPut]
-        public void Put([FromBody]CategoryViewModel categoryVm)
+        public IActionResult Put([FromBody]CategoryViewModel categoryVm)
         {
+            if (ModelState.IsValid)
+            {
+                var category = _uow.CategoryRepository.GetByID(categoryVm.Id);
+
+                if (category != null)
+                {
+                    category.Name = categoryVm.Name;
+                    category.RegisterUpdate = DateTime.Now;
+                    _uow.CategoryRepository.Update(category);
+                    _uow.Save();
+                }
+            }
+
+            return Response();
         }
 
-        // DELETE api/values/5
+        // DELETE api/category/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _uow.CategoryRepository.Delete(id);
+            _uow.Save();
+            return Response();
         }
     }
 }

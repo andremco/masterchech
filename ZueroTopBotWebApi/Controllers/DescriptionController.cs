@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Models;
 using Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using ZueroTopBotWebApi.Models;
 
 namespace ZueroTopBotWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class DescriptionController : Controller
+    public class DescriptionController : BaseController
     {
         private readonly UnitOfWork _uow;
 
@@ -15,36 +17,86 @@ namespace ZueroTopBotWebApi.Controllers
             _uow = uow;
         }
 
-        // GET api/values
+        // GET api/description
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "Bocó", "Trouxa", "Sfilkis" };
+            var descriptions = _uow.DescriptionRepository.Get();
+
+            if (descriptions != null)
+            {
+                return Response(descriptions);
+            }
+
+            return Response();
         }
 
-        // GET api/values/5
+        // GET api/description/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "null";
+            var description = _uow.DescriptionRepository.GetByID(id);
+
+            if (description != null)
+            {
+                return Response(description);
+            }
+
+            return Response();
         }
 
-        // POST api/values
+        // POST api/description
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]DescriptionViewModel descriptionVm)
         {
+            if (ModelState.IsValid)
+            {
+                var description = new Description()
+                {
+                    CategoryId = descriptionVm.CategoryId,
+                    Descript = descriptionVm.Description,
+                    RegisterRecord = DateTime.Now
+                };
+
+                //TODO validar para não criar uma mesma descrição através do nome
+                _uow.DescriptionRepository.Insert(description);
+                _uow.Save();
+
+                return Response();
+            }
+
+            return Response();
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/description
+        [HttpPut]
+        public IActionResult Put([FromBody]DescriptionViewModel descriptionVm)
         {
+            if (ModelState.IsValid)
+            {
+                var description = _uow.DescriptionRepository.GetByID(descriptionVm.Id);
+
+                if (description != null)
+                {
+                    description.CategoryId = descriptionVm.CategoryId;
+                    description.Descript = descriptionVm.Description;
+                    description.RegisterUpdate = DateTime.Now;
+
+                    _uow.DescriptionRepository.Update(description);
+                    _uow.Save();
+                }
+            }
+
+            return Response();
         }
 
-        // DELETE api/values/5
+        // DELETE api/description/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _uow.DescriptionRepository.Delete(id);
+            _uow.Save();
+            return Response();
         }
     }
 }
