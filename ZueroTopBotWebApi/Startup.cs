@@ -8,6 +8,9 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
 using ZueroTopBotWebApi.Middlewares;
 using ZueroTopBotWebApi.Filters;
+using Core.Context;
+using Microsoft.EntityFrameworkCore;
+using Core.Repositories;
 
 namespace ZueroTopBotWebApi
 {
@@ -46,6 +49,9 @@ namespace ZueroTopBotWebApi
             });
 
             services.AddMvc();
+
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddScoped<UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

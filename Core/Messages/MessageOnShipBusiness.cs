@@ -9,7 +9,7 @@ namespace Core.Messages
             get{
                 return new string[] { "um bocó", "um trouxa", "um sfilkis", "um vacilão",
                     "um tonto", "um tapado", "uma besta", "uma goiaba", "uma cibola",
-                    "um miojo", "uma peteca", "uma laranja", "um bolo" };
+                    "um miojo", "uma peteca", "uma laranja", "um bolo", "um hamburguer", "uma batata" };
             }
         }
 

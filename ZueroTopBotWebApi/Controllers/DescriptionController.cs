@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace ZueroTopBotWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class TrouxaController : Controller
+    public class DescriptionController : Controller
     {
+        private readonly UnitOfWork _uow;
+
+        public DescriptionController(UnitOfWork uow)
+        {
+            _uow = uow;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
