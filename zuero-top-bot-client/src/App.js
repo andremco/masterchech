@@ -1,25 +1,42 @@
 import React from 'react';
-import { Navbar, FormGroup, NavbarBrand, Input, Label, Button } from 'reactstrap';
+import { Navbar, FormGroup, NavbarBrand, Input, Label, Button, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import TableList from "./components/TableList";
 import Form from "./components/Form";
 import './App.css';
 
 function App(){
   return (<div>
-    <Navbar className="app-navbar fixed-top">
-      <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="app-navbar-brand">@ZueroTopBot</NavbarBrand>
-      {/* <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="app-navbar-brand">Receitas</NavbarBrand> */}
-    </Navbar>
-    <div className="container d-flex h-100">
-      <div className="align-self-center w-100">
-          <TableList></TableList> 
-          <Form></Form>
+    <Router>
+      <Navbar className="app-navbar fixed-top" expand="xs">
+        <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="color-app">@ZueroTopBot</NavbarBrand>
+        <Nav navbar>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret className="color-app">
+              Receitas
+            </DropdownToggle>
+            <DropdownMenu right style={{left: "5px"}}>
+              <DropdownItem>
+                <Link to="/" className="item-menu-app">Cadastrar</Link>
+              </DropdownItem>
+              <DropdownItem>
+                <Link to="/receitas/" className="item-menu-app">Visualizar</Link>
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          </Nav>
+      </Navbar>
+      <div className="container d-flex h-100">
+        <div className="align-self-center w-100">
+          <h5>{process.env.API_URL}</h5>
+          <Route path="/" exact component={Form} />
+          <Route path="/receitas/" component={TableList} />
+        </div>
       </div>
-    </div>
-    <div className="footer">
-      <p>Bot for telegram &#129302;</p>
-      {/* <p>Receitas &#129302;</p> */}
-    </div>
+      <div className="footer">
+        <p>Bot for telegram &#129302;</p>
+      </div>
+    </Router>
   </div>);
 }
 

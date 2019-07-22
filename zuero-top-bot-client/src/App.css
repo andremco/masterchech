@@ -64,8 +64,21 @@
   background-color: #282c34;
 }
 
-.app-navbar-brand{
+.color-app{
   color: #61dafb !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #61dafb !important;
+}
+
+.item-menu-app:hover{
+  color: #282c34;
+  text-decoration: none;
+}
+
+.item-menu-app{
+  color: #282c34;
 }
 
 .pointer{

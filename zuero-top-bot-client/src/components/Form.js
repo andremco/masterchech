@@ -41,7 +41,6 @@ class Form extends React.Component {
     }
     
     onSubmit = (values, props) => {
-        debugger;
         props.setSubmitting(false);
         this.openOrCloseModalSuccess();
     }
@@ -74,7 +73,7 @@ class Form extends React.Component {
     render(){
         var initialValues = {category: '', description: ''}
 
-        return(<div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "30px"}}>
+        return(<div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "80px"}}>
             <h3>Cadastrar receita</h3>
             <Formik initialValues={initialValues} onSubmit={this.onSubmit} validate={this.validate}>
                 {this.form}
