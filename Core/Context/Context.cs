@@ -6,6 +6,7 @@ namespace Core.Context
 {
     public class Context : DbContext
     {
+        public static string ConnectionString;
         public DbSet<Category> Categories { get; set; }
         public DbSet<Description> Descriptions { get; set; }
 
@@ -14,8 +15,17 @@ namespace Core.Context
 
         }
 
+        public Context()
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(Context.ConnectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

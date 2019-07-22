@@ -34,5 +34,13 @@ namespace ZueroTopBotWebApi.BotResponse
                 text: "É " + phrase
             );
         }
+
+        public static async Task Response(ITelegramBotClient botClient, Chat chat, string response)
+        {
+            await botClient.SendTextMessageAsync(
+                        chatId: chat,
+                        text: response
+                );
+        }
     }
 }

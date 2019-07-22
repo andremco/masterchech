@@ -7,7 +7,7 @@ namespace ZueroTopBotWebApi.Controllers
     public abstract class BaseController : Controller
     {
         [ApiExplorerSettings(IgnoreApi = true)]
-        public IActionResult Response(object obj = null)
+        protected new IActionResult Response(object obj = null)
         {
             if (ModelState.IsValid)
             {

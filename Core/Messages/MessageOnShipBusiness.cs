@@ -1,10 +1,19 @@
 ﻿using System;
+using System.Linq;
 using Core.Enum;
+using Core.Repositories;
 
 namespace Core.Messages
 {
     public class MessageOnShipBusiness
     {
+        private readonly UnitOfWork _uow;
+
+        public MessageOnShipBusiness(UnitOfWork unitOfWork)
+        {
+            _uow = unitOfWork;
+        }
+
         private string[] _responsePhrases {
             get{
                 return new string[] { "um bocó", "um trouxa", "um sfilkis", "um vacilão",
@@ -41,6 +50,10 @@ namespace Core.Messages
                 case "/proximotrouxa@zuerotopbot":
                     return ResponseForUserEnum.ProximoTrouxa;
 
+                case "/receitadodia":
+                case "/receitadodia@zuerotopbot":
+                    return ResponseForUserEnum.ReceitaDoDia;
+
                 default:
                     return ResponseForUserEnum.None;
             }
@@ -56,6 +69,10 @@ namespace Core.Messages
 
                 case "/proximotrouxa":
                 case "/proximotrouxa@zuerotopbot":
+                    return true;
+
+                case "/receitadodia":
+                case "/receitadodia@zuerotopbot":
                     return true;
 
                 default:
@@ -76,5 +93,19 @@ namespace Core.Messages
 
             return _responsePhrases[randomNumber];
         }
+
+        public string GetRandomDescription()
+        {
+            var context = _uow.GetContext();
+            var random = new Random();
+            var totalDescriptions = context.Descriptions.Count();
+            var toSkip = random.Next(0, totalDescriptions);
+
+            var description = context.Descriptions.Skip(toSkip).Take(1).First();
+
+            return description.Descript;
+        }
+
+
     }
 }

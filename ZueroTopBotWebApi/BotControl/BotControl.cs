@@ -1,5 +1,8 @@
-﻿using Core.Enum;
+﻿using System.Linq;
+using Core.Context;
+using Core.Enum;
 using Core.Messages;
+using Core.Repositories;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Args;
@@ -9,10 +12,13 @@ namespace ZueroTopBotWebApi.BotControl
     public static class BotControl
     {
         static ITelegramBotClient BotClient;
+        static UnitOfWork UnitOfWork;
 
         public static void ZueroTopBotTelegram()
         {
             BotClient = new TelegramBotClient(Program.Configuration["BotKey"]);
+            Context.ConnectionString = Program.Configuration["ConnectionStrings:DefaultConnection"];
+            UnitOfWork = new UnitOfWork(new Context());
 
             var me = BotClient.GetMeAsync().Result;
             Program.Logger.LogInformation($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
@@ -27,7 +33,7 @@ namespace ZueroTopBotWebApi.BotControl
 
             if (text != null)
             {
-                var business = new MessageOnShipBusiness();
+                var business = new MessageOnShipBusiness(UnitOfWork);
 
                 if (BotResponse.BotResponse.IsResponseNextTimeForTrouxa)
                 {
@@ -53,6 +59,11 @@ namespace ZueroTopBotWebApi.BotControl
                         case ResponseForUserEnum.ProximoTrouxa:
                             BotResponse.BotResponse.IsResponseNextTimeForTrouxa = true;
                             await BotResponse.BotResponse.ResponseInfoOfVictim(BotClient, e.Message.Chat);
+                            break;
+
+                        case ResponseForUserEnum.ReceitaDoDia:
+                            var receitaDoDia = business.GetRandomDescription();
+                            await BotResponse.BotResponse.Response(BotClient, e.Message.Chat, receitaDoDia);
                             break;
                     }
                 }

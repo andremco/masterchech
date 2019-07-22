@@ -65,5 +65,10 @@ namespace Core.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public Context.Context GetContext()
+        {
+            return _context;
+        }
     }
 }
