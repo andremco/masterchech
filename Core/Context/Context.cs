@@ -25,6 +25,7 @@ namespace Core.Context
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(Context.ConnectionString);
+                optionsBuilder.UseLazyLoadingProxies();
             }
         }
 

@@ -48,9 +48,20 @@ namespace ZueroTopBotWebApi
                 c.OperationFilter<HeaderKeyFilterSwagger>();
             });
 
+            services.AddCors(o => o.AddPolicy("PolicyAPI", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddMvc();
 
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<Context>(options => {
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseLazyLoadingProxies();
+
+                }) ;
             services.AddScoped<UnitOfWork>();
         }
 
@@ -68,7 +79,9 @@ namespace ZueroTopBotWebApi
                 });
 
             }
-            
+
+            app.UseCors("PolicyAPI");
+
             app.UseMiddleware<APIKeyMiddleware>();
 
             app.UseMvc();

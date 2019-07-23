@@ -16,6 +16,6 @@ namespace Core.Models
 
         public DateTime? RegisterUpdate { get; set; }
 
-        public ICollection<Description> Descriptions { get; set; }
+        public virtual ICollection<Description> Descriptions { get; set; }
     }
 }

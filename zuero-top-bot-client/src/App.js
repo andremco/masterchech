@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import TableList from "./components/TableList";
 import Form from "./components/Form";
 import './App.css';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 function App(){
   return (<div>
@@ -13,7 +16,7 @@ function App(){
         <Nav navbar>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret className="color-app">
-              Receitas
+              Receitas {process.env.API_URL}
             </DropdownToggle>
             <DropdownMenu right style={{left: "5px"}}>
               <DropdownItem>
@@ -28,7 +31,6 @@ function App(){
       </Navbar>
       <div className="container d-flex h-100">
         <div className="align-self-center w-100">
-          <h5>{process.env.API_URL}</h5>
           <Route path="/" exact component={Form} />
           <Route path="/receitas/" component={TableList} />
         </div>

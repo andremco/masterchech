@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Models;
 using Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace ZueroTopBotWebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var descriptions = _uow.DescriptionRepository.Get();
+            var descriptions = DescriptionViewModel.Convert(_uow.DescriptionRepository.Get().ToList());
 
             if (descriptions != null)
             {
