@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bit/davidhu2000.react-spinners.pacman-loader": "^0.5.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
@@ -13,8 +14,10 @@
     "formik": "^1.5.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-loading-overlay": "^1.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-spinners": "^0.5.13",
     "reactstrap": "^8.0.1"
   },
   "scripts": {

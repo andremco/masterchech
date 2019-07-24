@@ -3,6 +3,16 @@ import { FormGroup, Input, Label, Button, Alert, FormFeedback } from 'reactstrap
 import { Formik, ErrorMessage } from 'formik'
 import ModalConfirmSuccess from "./ModalConfirmSuccess";
 
+const SpinnerPage = () => {
+  return (
+    <div>
+      <div class="spinner-border spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  );
+}
+
 class Form extends React.Component {
 
     constructor(props){
@@ -42,6 +52,9 @@ class Form extends React.Component {
     
     onSubmit = (values, props) => {
         props.setSubmitting(false);
+
+
+        
         this.openOrCloseModalSuccess();
     }
     
@@ -74,6 +87,7 @@ class Form extends React.Component {
         var initialValues = {category: '', description: ''}
 
         return(<div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "80px"}}>
+            {/* <SpinnerPage></SpinnerPage> */}
             <h3>Cadastrar receita</h3>
             <Formik initialValues={initialValues} onSubmit={this.onSubmit} validate={this.validate}>
                 {this.form}
