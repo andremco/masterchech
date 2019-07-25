@@ -42,6 +42,23 @@ class API {
             body: JSON.stringify(data)
         }).then((response) => response.json()).then(funcCallback);
     }
+
+    static delete(resource, funcCallback){
+        const apiUrl = API.getApiUrl();
+        const apiKeyHeader = API.getApiKeyHeader();
+        if(!apiUrl || !apiKeyHeader){
+            throw new Error("null environments variables!");
+        }
+
+       fetch(apiUrl + resource, {
+           headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'APIKey': apiKeyHeader
+           },
+           method: 'DELETE'
+       }).then((response) => response.json()).then(funcCallback);
+    }
  }
 
  export default API;

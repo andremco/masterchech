@@ -45,9 +45,22 @@ class Form extends React.Component {
         return errors;
     }
     
+    responseApi = (response) => {
+        this.setState({ isLoading: false });
+        if(response && response.success){
+            this.openOrCloseModalSuccess();
+        }
+        
+    }
+
     onSubmit = (values, props) => {
         props.setSubmitting(false);
-        this.openOrCloseModalSuccess();
+
+        this.setState({ isLoading: true})
+
+        var data = {"categoryId": values.category, "description": values.description}
+
+        API.post("description", data, this.responseApi)
     }
     
     form = (props) => (
