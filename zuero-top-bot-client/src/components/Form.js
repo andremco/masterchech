@@ -47,9 +47,6 @@ class Form extends React.Component {
     
     onSubmit = (values, props) => {
         props.setSubmitting(false);
-
-
-        
         this.openOrCloseModalSuccess();
     }
     

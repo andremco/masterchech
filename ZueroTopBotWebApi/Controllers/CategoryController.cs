@@ -21,7 +21,7 @@ namespace ZueroTopBotWebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categories = _uow.CategoryRepository.Get();
+            var categories = CategoryViewModel.Convert(_uow.CategoryRepository.Get().ToList());
 
             if (categories != null)
             {
