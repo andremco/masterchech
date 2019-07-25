@@ -2,16 +2,9 @@ import React from 'react';
 import { FormGroup, Input, Label, Button, Alert, FormFeedback } from 'reactstrap';
 import { Formik, ErrorMessage } from 'formik'
 import ModalConfirmSuccess from "./ModalConfirmSuccess";
-
-const SpinnerPage = () => {
-  return (
-    <div>
-      <div class="spinner-border spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  );
-}
+import API from "./API";
+import LoadingOverlay from 'react-loading-overlay'
+import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
 
 class Form extends React.Component {
 
@@ -19,7 +12,9 @@ class Form extends React.Component {
         super(props);
 
         this.state = {
-            openModalSuccess: false
+            openModalSuccess: false,
+            isLoading: false,
+            categories: []
         }
         this.toggleSuccess = this.toggleSuccess.bind(this);
         this.openOrCloseModalSuccess = this.openOrCloseModalSuccess.bind(this);
@@ -66,7 +61,9 @@ class Form extends React.Component {
                     <Input type="select" name="category" id="category" onChange={props.handleChange}
                     onBlur={props.handleBlur} value={props.values.category} invalid={(props.errors.category) ? true : false}>
                         <option value="selecione">Selecione</option>
-                        <option value="receita">Receita</option>
+                        {
+                            this.state.categories && this.state.categories.map((item, i) => <option key={i} value={item.id}>{item.name}</option>) 
+                        }
                     </Input>
                     {props.errors.category && <FormFeedback>{props.errors.category}</FormFeedback>}
                     
@@ -83,11 +80,27 @@ class Form extends React.Component {
             </form>
         </React.Fragment>)
 
+    getCategories = (response) => {
+        if(response && response.data){
+            this.setState({ categories: response.data, isLoading: false });
+        }
+        else{
+            this.setState({ isLoading: false });
+        }
+    }
+
+    componentDidMount(){
+        this.setState({ isLoading: true})
+        API.get("category", this.getCategories);
+    }
+
     render(){
         var initialValues = {category: '', description: ''}
 
         return(<div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "80px"}}>
-            {/* <SpinnerPage></SpinnerPage> */}
+            <LoadingOverlay active={this.state.isLoading} 
+                spinner={<PacmanLoader size={20} color="#61dafb" style={{width:"5px !important", height:"5px !important"}}/>}>
+            </LoadingOverlay>
             <h3>Cadastrar receita</h3>
             <Formik initialValues={initialValues} onSubmit={this.onSubmit} validate={this.validate}>
                 {this.form}

@@ -8,7 +8,7 @@ class API {
         return process.env.REACT_APP_API_KEY_HEADER;
     }
 
-    static get(resource, func1, func2){
+    static get(resource, funcCallback){
         const apiUrl = API.getApiUrl();
         const apiKeyHeader = API.getApiKeyHeader();
         if(!apiUrl || !apiKeyHeader){
@@ -22,10 +22,10 @@ class API {
             'APIKey': apiKeyHeader
            },
            method: 'GET'
-       }).then(func1).then(func2);
+       }).then((response) => response.json()).then(funcCallback);
     }
 
-    static post(resource, data, func1, func2){
+    static post(resource, data, funcCallback){
         const apiUrl = API.getApiUrl();
         const apiKeyHeader = API.getApiKeyHeader();
         if(!apiUrl || !apiKeyHeader){
@@ -40,7 +40,7 @@ class API {
             },
             method: 'POST',
             body: JSON.stringify(data)
-        }).then(func1).then(func2);
+        }).then((response) => response.json()).then(funcCallback);
     }
  }
 

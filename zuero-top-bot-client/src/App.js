@@ -12,55 +12,46 @@ dotenv.config()
 
 
 
-function App(){
-  return (
-    <LoadingOverlay
-    active={true}
-    spinner={<PacmanLoader
-      size='50'
-    color='#61dafb'
-    css={{width:"260px !important", height:"130px !important"}}
-    />}
-  >  
-    <div>
+class App extends React.Component{
 
-      <Router>
-              <Navbar className="app-navbar fixed-top" expand="xs">
-                <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="color-app">@ZueroTopBot</NavbarBrand>
-                <Nav navbar>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret className="color-app">
-                      Receitas {process.env.API_URL}
-                    </DropdownToggle>
-                    <DropdownMenu right style={{left: "5px"}}>
-                      <DropdownItem>
-                        <Link to="/" className="item-menu-app">Cadastrar</Link>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Link to="/receitas/" className="item-menu-app">Visualizar</Link>
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  </Nav>
-              </Navbar>
-              <div className="container d-flex h-100">
-                <div className="align-self-center w-100">
+  constructor(props){
+    super(props);
+  }
 
-                  <Route path="/" exact component={Form} />
-                  <Route path="/receitas/" component={TableList} />
+  render () { 
+    return (
+        <Router>
+          <Navbar className="app-navbar fixed-top" expand="xs">
+            <NavbarBrand href="https://telegram.me/ZueroTopBot" target="_blank" className="color-app">@ZueroTopBot</NavbarBrand>
+            <Nav navbar>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret className="color-app">
+                  Receitas {process.env.API_URL}
+                </DropdownToggle>
+                <DropdownMenu right style={{left: "5px"}}>
+                  <DropdownItem>
+                    <Link to="/" className="item-menu-app">Cadastrar</Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to="/receitas/" className="item-menu-app">Visualizar</Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              </Nav>
+          </Navbar>
+          <div className="container d-flex h-100">
+            <div className="align-self-center w-100">
 
-                </div>
-              </div>
-              <div className="footer">
-                <p>Bot for telegram &#129302;</p>
-              </div>
-            </Router>
+              <Route path="/" exact component={() => <Form setLoading={this.setLoading}></Form>} />
+              <Route path="/receitas/" component={TableList} />
 
-
-
-            
+            </div>
           </div>
-          </LoadingOverlay>);
+          <div className="footer">
+            <p>Bot for telegram &#129302;</p>
+          </div>
+        </Router>)
+    };
 }
 
 export default App;

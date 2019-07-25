@@ -28,8 +28,7 @@ class TableList extends React.Component{
 
   componentDidMount(){
 
-    var responseToJson = (response) => response.json()
-    API.get("description", responseToJson, this.getDescriptions);
+    API.get("description", this.getDescriptions);
 
   }
 
