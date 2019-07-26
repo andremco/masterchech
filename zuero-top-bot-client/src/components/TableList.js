@@ -23,7 +23,7 @@ class TableList extends React.Component{
       this.setState({ descriptions: response.data, isLoading: false });
     }
     else{
-      this.setState({ isLoading: false });
+      this.disableLoading();
     }
   }
 
@@ -36,8 +36,16 @@ class TableList extends React.Component{
   }
 
   getDescriptions = () => {
-    this.setState({ isLoading: true})
+    this.enableLoading()
     API.get("description", this.responseApi);
+  }
+
+  enableLoading = () => {
+    this.setState({ isLoading: true})
+  }
+
+  disableLoading = () => {
+    this.setState({ isLoading: false})
   }
 
   render () 
@@ -71,7 +79,7 @@ class TableList extends React.Component{
                             <td>{item.id}</td>
                             <td>{item.nameCategory}</td>
                             <td>{item.description}</td>
-                            <td><IconActions descriptionId={item.id} getDescriptions={this.getDescriptions}></IconActions></td>
+                            <td><IconActions descriptionId={item.id} getDescriptions={this.getDescriptions} enableLoading={this.enableLoading} disableLoading={this.disableLoading}></IconActions></td>
                           </tr>)
                         }
                       </tbody>

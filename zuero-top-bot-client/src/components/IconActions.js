@@ -34,7 +34,8 @@ class IconActions extends React.Component {
     return (
         <React.Fragment>
           <FontAwesomeIcon icon={faTrashAlt} color="red" className="pointer" onClick={this.clickOnTrash}></FontAwesomeIcon>
-          <ModalConfirmDelete openModal={this.state.openModal} toggle={this.toggle} descriptionId={this.props.descriptionId} getDescriptions={this.props.getDescriptions}></ModalConfirmDelete>
+          <ModalConfirmDelete openModal={this.state.openModal} toggle={this.toggle} descriptionId={this.props.descriptionId} 
+            getDescriptions={this.props.getDescriptions} enableLoading={this.props.enableLoading} disableLoading={this.props.disableLoading}></ModalConfirmDelete>
         </React.Fragment>
     );
   }

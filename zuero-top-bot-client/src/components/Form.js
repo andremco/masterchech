@@ -80,7 +80,7 @@ class Form extends React.Component {
                 </FormGroup>
                 <FormGroup>
                     <Label for="description">Descrição</Label>
-                    <Input type="textarea" name="description" id="description" onChange={props.handleChange}
+                    <Input type="textarea" name="description" id="description" onChange={props.handleChange} maxLength={250}
                     onBlur={props.handleBlur} value={props.values.description} invalid={(props.errors.description) ? true : false}/>
                     {props.errors.description && <FormFeedback>{props.errors.description}</FormFeedback>}
                 </FormGroup>
