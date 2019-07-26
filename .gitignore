@@ -86,6 +86,7 @@ $RECYCLE.BIN/
 
 # Build results
 [Dd]ebug/
+[Bb]uild/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
