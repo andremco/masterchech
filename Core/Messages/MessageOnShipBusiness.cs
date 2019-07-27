@@ -28,11 +28,11 @@ namespace Core.Messages
             switch (value.ToLower())
             {
                 case "/trouxa":
-                case "/trouxa@masterchech":
+                case "/trouxa@masterchechbot":
                     return ResponseForUserEnum.Trouxa;
 
                 case "/culinariadodia":
-                case "/culinariadodia@masterchech":
+                case "/culinariadodia@masterchechbot":
                     return ResponseForUserEnum.CulinariaDoDia;
 
                 default:
@@ -45,11 +45,11 @@ namespace Core.Messages
             switch (value.ToLower())
             {
                 case "/trouxa":
-                case "/trouxa@masterchech":
+                case "/trouxa@masterchechbot":
                     return true;
 
                 case "/culinariadodia":
-                case "/culinariadodia@masterchech":
+                case "/culinariadodia@masterchechbot":
                     return true;
 
                 default:
