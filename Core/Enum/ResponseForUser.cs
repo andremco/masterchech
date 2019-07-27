@@ -3,8 +3,7 @@
     public enum ResponseForUserEnum
     {
         None,
-        GustavoTrouxa,
-        ProximoTrouxa,
-        ReceitaDoDia
+        Trouxa,
+        CulinariaDoDia
     }
 }

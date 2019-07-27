@@ -22,37 +22,18 @@ namespace Core.Messages
             }
         }
 
-        private string[] _responseTrouxa {
-            get{
-                var payload = _responsePhrases;
-
-                var randomNumber = new Random().Next(payload.Length);
-
-                return new string[]
-                {
-                    "Gus",
-                    "Ta",
-                    "Vo",
-                    "Vc é " + payload[randomNumber]
-                };
-            }
-        }
 
         public ResponseForUserEnum CommandForBot(string value)
         {
             switch (value.ToLower())
             {
                 case "/trouxa":
-                case "/trouxa@zuerotopbot":
-                    return ResponseForUserEnum.GustavoTrouxa;
+                case "/trouxa@masterchech":
+                    return ResponseForUserEnum.Trouxa;
 
-                case "/proximotrouxa":
-                case "/proximotrouxa@zuerotopbot":
-                    return ResponseForUserEnum.ProximoTrouxa;
-
-                case "/receitadodia":
-                case "/receitadodia@zuerotopbot":
-                    return ResponseForUserEnum.ReceitaDoDia;
+                case "/culinariadodia":
+                case "/culinariadodia@masterchech":
+                    return ResponseForUserEnum.CulinariaDoDia;
 
                 default:
                     return ResponseForUserEnum.None;
@@ -64,15 +45,11 @@ namespace Core.Messages
             switch (value.ToLower())
             {
                 case "/trouxa":
-                case "/trouxa@zuerotopbot":
+                case "/trouxa@masterchech":
                     return true;
 
-                case "/proximotrouxa":
-                case "/proximotrouxa@zuerotopbot":
-                    return true;
-
-                case "/receitadodia":
-                case "/receitadodia@zuerotopbot":
+                case "/culinariadodia":
+                case "/culinariadodia@masterchech":
                     return true;
 
                 default:
@@ -80,10 +57,6 @@ namespace Core.Messages
             }
         }
 
-        public string[] ResponseTrouxa()
-        {
-            return _responseTrouxa;
-        }
 
         public string GetPhrase()
         {
@@ -94,18 +67,59 @@ namespace Core.Messages
             return _responsePhrases[randomNumber];
         }
 
-        public string GetRandomDescription()
+        public string GetRandomRecipe()
         {
             var context = _uow.GetContext();
-            var random = new Random();
-            var totalDescriptions = context.Descriptions.Count();
-            var toSkip = random.Next(0, totalDescriptions);
 
-            var description = context.Descriptions.Skip(toSkip).Take(1).First();
+            //Nome do prato => Id == 1!!!
+            var nameDescription = RetrieveOneRandomDataFromContext(context, 1);
 
-            return description.Descript;
+            //Ingrediente => Id == 2!!!
+            var ingredients = RetrieveMultipleRandomDataFromContext(context, 2);
+
+            //Modo de preparo => Id == 3!!!
+            var preparation = RetrieveOneRandomDataFromContext(context, 3);
+
+            //Format of message for telegram
+            var message = (!string.IsNullOrEmpty(nameDescription)) ? $"*Prato* \U0001F372: {nameDescription} \n" : "";
+
+            if (ingredients != null)
+            {
+                int amountTotalIngredient = new Random().Next(0, 10); 
+                message += $"*Ingredientes* \U0001F96B\U0001F961\U0001F95A\U0001F35D\U0001F9C2: \n";
+                foreach (var item in ingredients)
+                {
+                    message += $"\t {amountTotalIngredient}x {item} \n";
+                    //New value for amount!
+                    amountTotalIngredient = new Random().Next(0, 10);
+                }
+            }
+
+            message += (!string.IsNullOrEmpty(preparation)) ? $"*Preparo* \U0001F52A\U0001F373: {preparation}" : "";
+
+            return message;
         }
 
+        public string RetrieveOneRandomDataFromContext(Context.Context context, int id)
+        {
+            var random = new Random();
+            var totalDescriptions = context.Descriptions.Count(d => d.Category.Id == id);
+            var toSkip = random.Next(0, totalDescriptions);
 
+            var description = context.Descriptions.Where(d => d.Category.Id == id).Skip(toSkip).Take(1).FirstOrDefault();
+
+            return (description != null ? description.Descript : "");
+        }
+
+        public string[] RetrieveMultipleRandomDataFromContext(Context.Context context, int id)
+        {
+            var random = new Random();
+            var totalDescriptions = context.Descriptions.Count(d => d.Category.Id == id);
+            var toSkip = random.Next(0, totalDescriptions);
+
+            var descriptions = context.Descriptions.Where(d => d.Category.Id == id).Skip(toSkip).Take(5).Select(d => d.Descript).ToArray();
+
+            return (descriptions != null ? descriptions : null);
+        }
     }
 }
