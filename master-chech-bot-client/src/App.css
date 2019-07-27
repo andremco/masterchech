@@ -1,0 +1,90 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/** My styles swagg bro  **/
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.footer
+{
+    background-color: #282c34;
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    height:50px;
+    margin-bottom:0px;
+}
+
+.footer p{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  color: #61dafb;
+}
+
+.app-navbar{
+  background-color: #282c34;
+}
+
+.color-app{
+  color: #61dafb !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #61dafb !important;
+}
+
+.item-menu-app:hover{
+  color: #282c34;
+  text-decoration: none;
+}
+
+.item-menu-app{
+  color: #282c34;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+div[data-testid="overlay"]{
+  position: fixed;
+}
