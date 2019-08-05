@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import API from "./API";
+import API from "../../API/API";
 import LoadingOverlay from 'react-loading-overlay'
 import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
 

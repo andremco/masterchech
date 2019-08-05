@@ -8,31 +8,31 @@ class API {
         return process.env.REACT_APP_API_KEY_HEADER;
     }
 
-    static get(resource, funcCallback){
+    static get(resource){
         const apiUrl = API.getApiUrl();
         const apiKeyHeader = API.getApiKeyHeader();
         if(!apiUrl || !apiKeyHeader){
             throw new Error("null environments variables!");
         }
 
-       fetch(apiUrl + resource, {
+       return fetch(apiUrl + resource, {
            headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'APIKey': apiKeyHeader
            },
            method: 'GET'
-       }).then((response) => response.json()).then(funcCallback);
+       });
     }
 
-    static post(resource, data, funcCallback){
+    static post(resource, data){
         const apiUrl = API.getApiUrl();
         const apiKeyHeader = API.getApiKeyHeader();
         if(!apiUrl || !apiKeyHeader){
             throw new Error("null environments variables!");
         }
 
-        fetch(apiUrl + resource, {
+        return fetch(apiUrl + resource, {
             headers: {
              'Accept': 'application/json',
              'Content-Type': 'application/json',
@@ -40,24 +40,24 @@ class API {
             },
             method: 'POST',
             body: JSON.stringify(data)
-        }).then((response) => response.json()).then(funcCallback);
+        });
     }
 
-    static delete(resource, funcCallback){
+    static delete(resource){
         const apiUrl = API.getApiUrl();
         const apiKeyHeader = API.getApiKeyHeader();
         if(!apiUrl || !apiKeyHeader){
             throw new Error("null environments variables!");
         }
 
-       fetch(apiUrl + resource, {
+       return fetch(apiUrl + resource, {
            headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'APIKey': apiKeyHeader
            },
            method: 'DELETE'
-       }).then((response) => response.json()).then(funcCallback);
+       });
     }
  }
 

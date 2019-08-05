@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormGroup, Input, Label, Button, Alert, FormFeedback } from 'reactstrap';
 import { Formik, ErrorMessage } from 'formik'
-import ModalConfirmSuccess from "./ModalConfirmSuccess";
-import API from "./API";
+import ModalConfirmSuccess from "../modals/ModalConfirmSuccess";
+import API from "../../API/API";
 import LoadingOverlay from 'react-loading-overlay'
 import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
 
-class Form extends React.Component {
+class CreateRecipePage extends React.Component {
 
     constructor(props){
         super(props);
@@ -60,7 +60,7 @@ class Form extends React.Component {
 
         var data = {"categoryId": values.category, "description": values.description}
 
-        API.post("description", data, this.responseApi)
+        // API.post("description", data, this.responseApi)
     }
     
     form = (props) => (
@@ -121,4 +121,4 @@ class Form extends React.Component {
 
 }
 
-export default Form;
+export default CreateRecipePage;

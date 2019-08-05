@@ -1,11 +1,11 @@
 import React from 'react';
 import { Table, Alert } from 'reactstrap';
-import IconActions from './IconActions'
-import API from "./API";
+import IconActions from '../modals/IconActions'
+import API from "../../API/API";
 import LoadingOverlay from 'react-loading-overlay'
 import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
 
-class TableList extends React.Component{
+class ViewAndEditRecipesPage extends React.Component{
 
   constructor(props){
     super(props);
@@ -90,4 +90,4 @@ class TableList extends React.Component{
             </div>);
   }
 }
-export default TableList;
+export default ViewAndEditRecipesPage;
