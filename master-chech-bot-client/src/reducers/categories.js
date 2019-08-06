@@ -5,7 +5,7 @@ export function categories(state = initialState.categories, action) {
     switch (action.type) { 
         case types.categories.GET: {
             const { categories } = action
-            let nextState = Object.assign({}, state)
+            let nextState = state
             for (let category of categories) {
                 if (!nextState[category.id]) {
                     nextState[category.id] = category

@@ -1,20 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { getAllCategories } from "../../actions/categories";
 import { FormGroup, Input, Label, Button, Alert, FormFeedback } from 'reactstrap';
 import { Formik, ErrorMessage } from 'formik'
 import ModalConfirmSuccess from "../modals/ModalConfirmSuccess";
-import API from "../../API/API";
 import LoadingOverlay from 'react-loading-overlay'
 import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
 
-class CreateRecipePage extends React.Component {
+class CreateMenuDescriptionPage extends React.Component {
 
     constructor(props){
         super(props);
 
         this.state = {
             openModalSuccess: false,
-            isLoading: false,
-            categories: []
         }
         this.toggleSuccess = this.toggleSuccess.bind(this);
         this.openOrCloseModalSuccess = this.openOrCloseModalSuccess.bind(this);
@@ -72,7 +73,7 @@ class CreateRecipePage extends React.Component {
                     onBlur={props.handleBlur} value={props.values.category} invalid={(props.errors.category) ? true : false}>
                         <option value="selecione">Selecione</option>
                         {
-                            this.state.categories && this.state.categories.map((item, i) => <option key={i} value={item.id}>{item.name}</option>) 
+                            this.props.categories && this.props.categories.map((item, i) => <option key={i} value={item.id}>{item.name}</option>) 
                         }
                     </Input>
                     {props.errors.category && <FormFeedback>{props.errors.category}</FormFeedback>}
@@ -100,15 +101,17 @@ class CreateRecipePage extends React.Component {
     }
 
     componentDidMount(){
-        this.setState({ isLoading: true})
-        API.get("category", this.getCategories);
+        // this.setState({ isLoading: true})
+        // API.get("category", this.getCategories);
+        debugger;
+        this.props.actions.getAllCategories();
     }
 
     render(){
         var initialValues = {category: '', description: ''}
 
         return(<div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "80px"}}>
-            <LoadingOverlay active={this.state.isLoading} 
+            <LoadingOverlay active={this.props.loading} 
                 spinner={<PacmanLoader size={20} color="#61dafb" style={{width:"5px !important", height:"5px !important"}}/>}>
             </LoadingOverlay>
             <h3>Cadastrar menu</h3>
@@ -121,4 +124,16 @@ class CreateRecipePage extends React.Component {
 
 }
 
-export default CreateRecipePage;
+export const mapStateToProps = state => {
+    return state
+} 
+
+export const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators({
+           getAllCategories     
+        }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateMenuDescriptionPage);

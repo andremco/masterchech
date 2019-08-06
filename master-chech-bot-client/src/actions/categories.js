@@ -17,7 +17,7 @@ export function getAllCategories() {
             .then(res => res.json())
             .then(response => {
                 console.log(response)
-                dispatch(updateMenuDescriptions(response.data))
+                dispatch(updateCategories(response.data))
                 dispatch(loaded())
             })
             .catch(err => { 

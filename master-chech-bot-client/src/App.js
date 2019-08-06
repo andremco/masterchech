@@ -5,13 +5,12 @@ import { Provider } from "react-redux";
 import  initialState  from "./constants/initialState";
 import  configureStore  from "./store/configureStore";
 import ViewAndEditRecipesPage from "./components/page/ViewAndEditRecipesPage";
-import CreateRecipePage from "./components/page/CreateRecipePage";
+import CreateMenuDescriptionPage from "./components/page/CreateMenuDescriptionPage";
 import './App.css';
 import './store/exampleUse'
 import dotenv from 'dotenv';
 
 dotenv.config()
-debugger;
 const store = configureStore(initialState)
 
 class App extends React.Component{
@@ -45,7 +44,7 @@ class App extends React.Component{
             <div className="container d-flex h-100">
               <div className="align-self-center w-100">
 
-                <Route path="/" exact component={CreateRecipePage} />
+                <Route path="/" exact component={CreateMenuDescriptionPage} />
                 {/* <Route path="/receitas/" component={ViewAndEditRecipesPage} /> */}
 
               </div>
