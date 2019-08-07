@@ -10,14 +10,17 @@ export function updateMenuDescriptions(menuDescriptions) {
     }
 }
 
-export function createMenuDescription(payload) {
+export function createMenuDescription(payload, openModalSuccess) {
     return dispatch => {
         dispatch(loading());
         return API.post("description", payload)
             .then(res => res.json())
             .then(response => {
-                console.log(response)
                 dispatch(loaded())
+                if(response && response.success){
+                    openModalSuccess();
+                }
+                
             })
             .catch(err => { 
                 dispatch(createError(err))
@@ -32,7 +35,6 @@ export function getAllMenuDescriptions() {
         return API.get("description")
             .then(res => res.json())
             .then(response => {
-                console.log(response)
                 dispatch(updateMenuDescriptions(response.data))
                 dispatch(loaded())
             })
@@ -49,7 +51,6 @@ export function deleteMenuDescription(menuDescriptionId) {
         return API.get("description/" + menuDescriptionId)
             .then(res => res.json())
             .then(response => {
-                console.log(response)
                 dispatch(loaded())
             })
             .catch(err => { 

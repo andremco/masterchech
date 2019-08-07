@@ -16,9 +16,10 @@ export function getAllCategories() {
         return API.get("category")
             .then(res => res.json())
             .then(response => {
-                console.log(response)
-                dispatch(updateCategories(response.data))
-                dispatch(loaded())
+                if(response && response.data){
+                    dispatch(updateCategories(response.data))
+                    dispatch(loaded())
+                }
             })
             .catch(err => { 
                 dispatch(createError(err))

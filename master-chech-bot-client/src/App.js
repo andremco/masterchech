@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Provider } from "react-redux";
 import  initialState  from "./constants/initialState";
 import  configureStore  from "./store/configureStore";
-import ViewAndEditRecipesPage from "./components/page/ViewAndEditRecipesPage";
+import ViewAndEditMenuDescriptionPage from "./components/page/ViewAndEditMenuDescriptionPage";
 import CreateMenuDescriptionPage from "./components/page/CreateMenuDescriptionPage";
 import './App.css';
 import './store/exampleUse'
@@ -35,7 +35,7 @@ class App extends React.Component{
                       <Link to="/" className="item-menu-app">Cadastrar</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      <Link to="/receitas/" className="item-menu-app">Visualizar</Link>
+                      <Link to="/menu/" className="item-menu-app">Visualizar</Link>
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -45,7 +45,7 @@ class App extends React.Component{
               <div className="align-self-center w-100">
 
                 <Route path="/" exact component={CreateMenuDescriptionPage} />
-                {/* <Route path="/receitas/" component={ViewAndEditRecipesPage} /> */}
+                <Route path="/menu/" component={ViewAndEditMenuDescriptionPage} />
 
               </div>
             </div>

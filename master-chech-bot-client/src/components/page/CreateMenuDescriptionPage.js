@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { getAllCategories } from "../../actions/categories";
+import { createMenuDescription } from "../../actions/menuDescriptions";
 import { FormGroup, Input, Label, Button, Alert, FormFeedback } from 'reactstrap';
 import { Formik, ErrorMessage } from 'formik'
 import ModalConfirmSuccess from "../modals/ModalConfirmSuccess";
@@ -17,14 +17,9 @@ class CreateMenuDescriptionPage extends React.Component {
         this.state = {
             openModalSuccess: false,
         }
-        this.toggleSuccess = this.toggleSuccess.bind(this);
         this.openOrCloseModalSuccess = this.openOrCloseModalSuccess.bind(this);
     }
-
-    toggleSuccess() {
-        this.openOrCloseModalSuccess();
-    }
-
+    
     openOrCloseModalSuccess(){
         this.setState(prevState => ({
                 openModalSuccess: !prevState.openModalSuccess
@@ -45,23 +40,13 @@ class CreateMenuDescriptionPage extends React.Component {
     
         return errors;
     }
-    
-    responseApi = (response) => {
-        this.setState({ isLoading: false });
-        if(response && response.success){
-            this.openOrCloseModalSuccess();
-        }
-        
-    }
 
     onSubmit = (values, props) => {
         props.setSubmitting(false);
 
-        this.setState({ isLoading: true})
-
         var data = {"categoryId": values.category, "description": values.description}
 
-        // API.post("description", data, this.responseApi)
+        this.props.actions.createMenuDescription(data, this.openOrCloseModalSuccess);
     }
     
     form = (props) => (
@@ -89,21 +74,10 @@ class CreateMenuDescriptionPage extends React.Component {
                     <Button outline color="info" style={{float: "right"}} disabled={props.isSubmitting}>Enviar</Button>      
                 </FormGroup> 
             </form>
-        </React.Fragment>)
-
-    getCategories = (response) => {
-        if(response && response.data){
-            this.setState({ categories: response.data, isLoading: false });
-        }
-        else{
-            this.setState({ isLoading: false });
-        }
-    }
+        </React.Fragment>
+    )
 
     componentDidMount(){
-        // this.setState({ isLoading: true})
-        // API.get("category", this.getCategories);
-        debugger;
         this.props.actions.getAllCategories();
     }
 
@@ -118,7 +92,7 @@ class CreateMenuDescriptionPage extends React.Component {
             <Formik initialValues={initialValues} onSubmit={this.onSubmit} validate={this.validate}>
                 {this.form}
             </Formik>
-            {this.state.openModalSuccess && <ModalConfirmSuccess openModal={this.state.openModalSuccess} toggle={this.toggleSuccess}></ModalConfirmSuccess>}
+            {this.state.openModalSuccess && <ModalConfirmSuccess openModal={this.state.openModalSuccess} toggle={this.openOrCloseModalSuccess}></ModalConfirmSuccess>}
         </div>);
     }
 
@@ -131,7 +105,8 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => {
     return {
         actions: bindActionCreators({
-           getAllCategories     
+           getAllCategories,
+           createMenuDescription    
         }, dispatch)
     }
 }

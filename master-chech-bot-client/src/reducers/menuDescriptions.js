@@ -5,7 +5,7 @@ export function menuDescriptions(state = initialState.menuDescriptions, action) 
     switch (action.type) { 
         case types.menuDescriptions.GET: {
             const { menuDescriptions } = action
-            let nextState = Object.assign({}, state)
+            let nextState = state
             for (let menuDescription of menuDescriptions) {
                 if (!nextState[menuDescription.id]) {
                     nextState[menuDescription.id] = menuDescription

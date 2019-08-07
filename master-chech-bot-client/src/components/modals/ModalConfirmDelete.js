@@ -10,19 +10,14 @@ class ModalConfirmDelete extends React.Component {
       super(props);
     }
 
-    responseApi = (response) => {
-      this.props.disableLoading();
-      this.props.toggle();
-      this.props.getDescriptions();
-    }
-
     deleteDescription = () => {
-
       var id = this.props.descriptionId;
 
-      this.props.enableLoading();
+      this.props.deleteMenuDescription(id)
 
-      API.delete("description/" + id, this.responseApi)
+      this.props.toggle();
+
+      this.props.getDescriptions();
     }
 
     render(){
@@ -33,7 +28,7 @@ class ModalConfirmDelete extends React.Component {
                   Você está certo disso? Valendo um milhão de reais
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger" onClick={this.deleteDescription}>Sim</Button>{' '}
+                  <Button color="danger" onClick={this.deleteMenuDescription}>Sim</Button>{' '}
                   <Button color="secondary" onClick={this.props.toggle}>Não</Button>
                 </ModalFooter>
               </Modal>
