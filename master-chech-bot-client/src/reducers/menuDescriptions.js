@@ -19,6 +19,11 @@ export function menuDescriptions(state = initialState.menuDescriptions, action) 
             nextState[menuDescription.id] = menuDescription
             return nextState
         }
+        case types.menuDescriptions.DELETE: { 
+            const { menuDescriptionId } = action
+            let nextState = state
+            return nextState.filter(m => m.id !== menuDescriptionId);
+        }
         default: 
             return state
     }

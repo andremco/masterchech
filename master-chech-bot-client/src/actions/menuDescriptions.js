@@ -3,10 +3,17 @@ import API from '../API/API'
 import { createError } from './error'
 import { loaded, loading } from "./loading";
 
-export function updateMenuDescriptions(menuDescriptions) {
+export function updateGetMenuDescriptions(menuDescriptions) {
     return {
         type: types.menuDescriptions.GET,
         menuDescriptions
+    }
+}
+
+export function updateDeleteMenuDescriptions(menuDescriptionId) {
+    return {
+        type: types.menuDescriptions.DELETE,
+        menuDescriptionId
     }
 }
 
@@ -35,7 +42,7 @@ export function getAllMenuDescriptions() {
         return API.get("description")
             .then(res => res.json())
             .then(response => {
-                dispatch(updateMenuDescriptions(response.data))
+                dispatch(updateGetMenuDescriptions(response.data))
                 dispatch(loaded())
             })
             .catch(err => { 
@@ -48,10 +55,13 @@ export function getAllMenuDescriptions() {
 export function deleteMenuDescription(menuDescriptionId) {
     return dispatch => {
         dispatch(loading());
-        return API.get("description/" + menuDescriptionId)
+        return API.delete("description/" + menuDescriptionId)
             .then(res => res.json())
             .then(response => {
                 dispatch(loaded())
+                if(response && response.success){
+                    dispatch(updateDeleteMenuDescriptions(menuDescriptionId))
+                }
             })
             .catch(err => { 
                 dispatch(createError(err))

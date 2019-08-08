@@ -66,7 +66,7 @@ class ViewAndEditMenuDescriptionPage extends React.Component{
                             <td>{item.id}</td>
                             <td>{item.nameCategory}</td>
                             <td>{item.description}</td>
-                            <td><IconActions descriptionId={item.id} getDescriptions={this.props.actions.getAllMenuDescriptions} 
+                            <td><IconActions descriptionId={item.id} getAllMenuDescriptions={this.props.actions.getAllMenuDescriptions} 
                                   deleteMenuDescription={this.props.actions.deleteMenuDescription}></IconActions></td>
                           </tr>)
                         }
