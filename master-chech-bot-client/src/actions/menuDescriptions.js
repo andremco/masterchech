@@ -58,10 +58,10 @@ export function deleteMenuDescription(menuDescriptionId) {
         return API.delete("description/" + menuDescriptionId)
             .then(res => res.json())
             .then(response => {
-                dispatch(loaded())
                 if(response && response.success){
-                    dispatch(updateDeleteMenuDescriptions(menuDescriptionId))
+                    dispatch(getAllMenuDescriptions())
                 }
+                dispatch(loaded())
             })
             .catch(err => { 
                 dispatch(createError(err))

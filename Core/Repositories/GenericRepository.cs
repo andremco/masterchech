@@ -64,6 +64,7 @@ namespace Core.Repositories
             {
                 _dbSet.Attach(entityToDelete);
             }
+            _context.Entry(entityToDelete).State = EntityState.Deleted;
             _dbSet.Remove(entityToDelete);
         }
 

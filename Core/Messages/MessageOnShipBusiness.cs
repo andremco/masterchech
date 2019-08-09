@@ -84,14 +84,11 @@ namespace Core.Messages
             var message = (!string.IsNullOrEmpty(nameDescription)) ? $"*Prato* \U0001F372: {nameDescription} \n" : "";
 
             if (ingredients != null)
-            {
-                int amountTotalIngredient = new Random().Next(0, 10); 
+            { 
                 message += $"*Ingredientes* \U0001F96B\U0001F961\U0001F95A\U0001F35D\U0001F9C2: \n";
                 foreach (var item in ingredients)
                 {
-                    message += $"\t {amountTotalIngredient}x {item} \n";
-                    //New value for amount!
-                    amountTotalIngredient = new Random().Next(0, 10);
+                    message += $"\t {item} \n";
                 }
             }
 

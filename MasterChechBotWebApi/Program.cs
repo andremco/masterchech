@@ -18,7 +18,7 @@ namespace MasterChechBotWebApi
 
             Log();
 
-            //BotControl.BotControl.ZueroTopBotTelegram();
+            BotControl.BotControl.ZueroTopBotTelegram();
 
             BuildWebHost(args).Run();
         }
