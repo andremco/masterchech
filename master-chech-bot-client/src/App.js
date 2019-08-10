@@ -6,7 +6,6 @@ import  initialState  from "./constants/initialState";
 import  configureStore  from "./store/configureStore";
 import CatalogMenuDescriptionPage from "./components/page/CatalogMenuDescriptionPage";
 import './App.css';
-import './store/exampleUse'
 import dotenv from 'dotenv';
 
 dotenv.config()
