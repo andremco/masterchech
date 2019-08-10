@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Provider } from "react-redux";
 import  initialState  from "./constants/initialState";
 import  configureStore  from "./store/configureStore";
-import ViewAndEditMenuDescriptionPage from "./components/page/ViewAndEditMenuDescriptionPage";
-import CreateMenuDescriptionPage from "./components/page/CreateMenuDescriptionPage";
+import CatalogMenuDescriptionPage from "./components/page/CatalogMenuDescriptionPage";
 import './App.css';
 import './store/exampleUse'
 import dotenv from 'dotenv';
@@ -30,23 +29,12 @@ class App extends React.Component{
                   <DropdownToggle nav caret className="color-app">
                     Menu do Chech
                   </DropdownToggle>
-                  <DropdownMenu right style={{left: "5px"}}>
-                    <DropdownItem>
-                      <Link to="/" className="item-menu-app">Cadastrar</Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link to="/menu/" className="item-menu-app">Visualizar</Link>
-                    </DropdownItem>
-                  </DropdownMenu>
                 </UncontrolledDropdown>
                 </Nav>
             </Navbar>
             <div className="container d-flex h-100">
               <div className="align-self-center w-100">
-
-                <Route path="/" exact component={CreateMenuDescriptionPage} />
-                <Route path="/menu/" component={ViewAndEditMenuDescriptionPage} />
-
+                <Route path="/" exact component={CatalogMenuDescriptionPage} />
               </div>
             </div>
             <div className="footer">

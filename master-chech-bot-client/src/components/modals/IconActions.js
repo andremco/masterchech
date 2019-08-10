@@ -1,41 +1,63 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons'
 import ModalConfirmDelete from './ModalConfirmDelete';
+import ModalUpdate from "./ModalUpdate";
 
 class IconActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openModal: false
+      openModalDelete: false,
+      openModalUpdate: false
     };
 
-    this.toggle = this.toggle.bind(this);
+    this.toggleModalDelete = this.toggleModalDelete.bind(this);
+    this.toggleModalUpdate = this.toggleModalUpdate.bind(this);
     this.clickOnTrash = this.clickOnTrash.bind(this);
-    this.openOrCloseModal = this.openOrCloseModal.bind(this);
+    this.clickOnEdit = this.clickOnEdit.bind(this);
+    this.openOrCloseModalDelete = this.openOrCloseModalDelete.bind(this);
+    this.openOrCloseModalUpdate = this.openOrCloseModalUpdate.bind(this);
   }
 
   clickOnTrash(){
-    this.openOrCloseModal();
+    this.openOrCloseModalDelete();
   }
 
-  toggle() {
-    this.openOrCloseModal();
+  clickOnEdit(){
+    this.openOrCloseModalUpdate();
   }
 
-  openOrCloseModal(){
+  toggleModalDelete() {
+    this.openOrCloseModalDelete();
+  }
+
+  toggleModalUpdate(){
+    this.openOrCloseModalUpdate();
+  }
+
+  openOrCloseModalDelete(){
     this.setState(prevState => ({
-        openModal: !prevState.openModal
+      openModalDelete: !prevState.openModalDelete
       }));
+  }
+
+  openOrCloseModalUpdate(){
+    this.setState(prevState => ({
+      openModalUpdate: !prevState.openModalUpdate
+    }))
   }
 
   render() {
     return (
         <React.Fragment>
+          <FontAwesomeIcon icon={faEdit} color="turquoise" className="pointer" onClick={this.clickOnEdit} style={{ marginRight: "5px"}}></FontAwesomeIcon>
           <FontAwesomeIcon icon={faTrashAlt} color="red" className="pointer" onClick={this.clickOnTrash}></FontAwesomeIcon>
-          <ModalConfirmDelete openModal={this.state.openModal} toggle={this.toggle} descriptionId={this.props.descriptionId} 
-            getAllMenuDescriptions={this.props.getAllMenuDescriptions} deleteMenuDescription={this.props.deleteMenuDescription}></ModalConfirmDelete>
+          <ModalUpdate openModal={this.state.openModalUpdate} toggle={this.toggleModalUpdate} description={this.props.description} 
+            updateMenuDescription={this.props.updateMenuDescription}></ModalUpdate>
+          <ModalConfirmDelete openModal={this.state.openModalDelete} toggle={this.toggleModalDelete} descriptionId={this.props.description.id} 
+            deleteMenuDescription={this.props.deleteMenuDescription}></ModalConfirmDelete>
         </React.Fragment>
     );
   }

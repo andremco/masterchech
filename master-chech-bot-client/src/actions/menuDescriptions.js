@@ -25,9 +25,28 @@ export function createMenuDescription(payload, openModalSuccess) {
             .then(response => {
                 dispatch(loaded())
                 if(response && response.success){
-                    openModalSuccess();
+                    openModalSuccess()
+                    dispatch(getAllMenuDescriptions())
                 }
-                
+            })
+            .catch(err => { 
+                dispatch(createError(err))
+                dispatch(loaded())
+            })
+    }
+}
+
+export function updateMenuDescription(payload, toggleModal) {
+    return dispatch => {
+        dispatch(loading());
+        return API.put("description", payload)
+            .then(res => res.json())
+            .then(response => {
+                dispatch(loaded())
+                if(response && response.success){
+                    toggleModal()
+                    dispatch(getAllMenuDescriptions())
+                }
             })
             .catch(err => { 
                 dispatch(createError(err))

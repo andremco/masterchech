@@ -43,6 +43,24 @@ class API {
         });
     }
 
+    static put(resource, data){
+        const apiUrl = API.getApiUrl();
+        const apiKeyHeader = API.getApiKeyHeader();
+        if(!apiUrl || !apiKeyHeader){
+            throw new Error("null environments variables!");
+        }
+
+        return fetch(apiUrl + resource, {
+            headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'APIKey': apiKeyHeader
+            },
+            method: 'PUT',
+            body: JSON.stringify(data)
+        });
+    }
+
     static delete(resource){
         const apiUrl = API.getApiUrl();
         const apiKeyHeader = API.getApiKeyHeader();
