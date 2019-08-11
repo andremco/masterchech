@@ -75,7 +75,7 @@ class CatalogMenuDescriptionPage extends React.Component {
                     {props.errors.description && <FormFeedback>{props.errors.description}</FormFeedback>}
                 </FormGroup>
                 <FormGroup style={{height: "80px"}}>
-                    <Button outline color="info" style={{float: "right"}} disabled={props.isSubmitting}>Enviar</Button>      
+                    <Button outline color="info" style={{float: "right"}} disabled={props.isSubmitting} className={"btn-sm"}>Enviar</Button>      
                 </FormGroup> 
             </form>
         </React.Fragment>
