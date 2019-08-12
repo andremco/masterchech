@@ -11,61 +11,61 @@ namespace MasterChechBotWebApi.BotControl
 {
     public static class BotControl
     {
-        static ITelegramBotClient BotClient;
-        static UnitOfWork UnitOfWork;
+        //static ITelegramBotClient BotClient;
+        //static UnitOfWork UnitOfWork;
 
-        public static void ZueroTopBotTelegram()
-        {
-            BotClient = new TelegramBotClient(Program.Configuration["BotKey"]);
-            Context.ConnectionString = Program.Configuration["ConnectionStrings:DefaultConnection"];
-            UnitOfWork = new UnitOfWork(new Context());
+        //public static void ZueroTopBotTelegram()
+        //{
+        //    BotClient = new TelegramBotClient(Program.Configuration["BotKey"]);
+        //    Context.ConnectionString = Program.Configuration["ConnectionStrings:DefaultConnection"];
+        //    UnitOfWork = new UnitOfWork(new Context());
 
-            var me = BotClient.GetMeAsync().Result;
-            Program.Logger.LogInformation($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
+        //    var me = BotClient.GetMeAsync().Result;
+        //    Program.Logger.LogInformation($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
 
-            BotClient.OnMessage += Bot_OnMessage;
-            BotClient.StartReceiving();
-        }
+        //    BotClient.OnMessage += Bot_OnMessage;
+        //    BotClient.StartReceiving();
+        //}
 
-        static async void Bot_OnMessage(object sender, MessageEventArgs e)
-        {
-            var text = e.Message.Text;
+        //static async void Bot_OnMessage(object sender, MessageEventArgs e)
+        //{
+        //    var text = e.Message.Text;
 
-            if (text != null)
-            {
-                var business = new MessageOnShipBusiness(UnitOfWork);
+        //    if (text != null)
+        //    {
+        //        var business = new MessageOnShipBusiness(UnitOfWork);
 
-                if (BotResponse.BotResponse.IsResponseTimeForTrouxa)
-                {
-                    var phrase = business.GetPhrase();
-                    await BotResponse.BotResponse.ResponseTrouxa(BotClient, e.Message.Chat, phrase);
-                    BotResponse.BotResponse.IsResponseTimeForTrouxa = false;
-                    return;
-                }
+        //        if (BotResponse.BotResponse.IsResponseTimeForTrouxa)
+        //        {
+        //            var phrase = business.GetPhrase();
+        //            await BotResponse.BotResponse.ResponseTrouxa(BotClient, e.Message.Chat, phrase);
+        //            BotResponse.BotResponse.IsResponseTimeForTrouxa = false;
+        //            return;
+        //        }
 
-                if (business.IsCommandForBot(text))
-                {
-                    Program.Logger.LogInformation($"Received a text message for user - {e.Message.From.Id} {e.Message.From.FirstName} {e.Message.From.LastName}.");
+        //        if (business.IsCommandForBot(text))
+        //        {
+        //            Program.Logger.LogInformation($"Received a text message for user - {e.Message.From.Id} {e.Message.From.FirstName} {e.Message.From.LastName}.");
 
-                    var responseForUserEnum = business.CommandForBot(text);
+        //            var responseForUserEnum = business.CommandForBot(text);
 
-                    switch (responseForUserEnum)
-                    {
-                        case ResponseForUserEnum.Trouxa:
-                            BotResponse.BotResponse.IsResponseTimeForTrouxa = true;
-                            await BotResponse.BotResponse.ResponseInfoOfVictim(BotClient, e.Message.Chat);
-                            break;
+        //            switch (responseForUserEnum)
+        //            {
+        //                case ResponseForUserEnum.Trouxa:
+        //                    BotResponse.BotResponse.IsResponseTimeForTrouxa = true;
+        //                    await BotResponse.BotResponse.ResponseInfoOfVictim(BotClient, e.Message.Chat);
+        //                    break;
 
-                        case ResponseForUserEnum.CulinariaDoDia:
-                            var culinariaDoDia = business.GetRandomRecipe();
-                            if (!string.IsNullOrEmpty(culinariaDoDia))
-                            {
-                                await BotResponse.BotResponse.Response(BotClient, e.Message.Chat, culinariaDoDia);
-                            }
-                            break;
-                    }
-                }
-            }
-        }
+        //                case ResponseForUserEnum.CulinariaDoDia:
+        //                    var culinariaDoDia = business.GetRandomRecipe();
+        //                    if (!string.IsNullOrEmpty(culinariaDoDia))
+        //                    {
+        //                        await BotResponse.BotResponse.Response(BotClient, e.Message.Chat, culinariaDoDia);
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

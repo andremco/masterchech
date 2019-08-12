@@ -11,6 +11,7 @@ using MasterChechBotWebApi.Filters;
 using Core.Context;
 using Microsoft.EntityFrameworkCore;
 using Core.Repositories;
+using MasterChechBotWebApi.HostedService;
 
 namespace MasterChechBotWebApi
 {
@@ -57,11 +58,13 @@ namespace MasterChechBotWebApi
 
             services.AddMvc();
 
+            services.AddHostedService<BotTelegramHostedService>();
+
             services.AddDbContext<Context>(options => {
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
                 options.UseLazyLoadingProxies();
+            });
 
-                }) ;
             services.AddScoped<UnitOfWork>();
         }
 

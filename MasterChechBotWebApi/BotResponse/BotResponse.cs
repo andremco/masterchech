@@ -29,7 +29,7 @@ namespace MasterChechBotWebApi.BotResponse
             await botClient.SendTextMessageAsync(
                         chatId: chat,
                         text: response,
-                        Telegram.Bot.Types.Enums.ParseMode.Markdown
+                        parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
                 );
         }
     }

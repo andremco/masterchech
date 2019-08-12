@@ -14,20 +14,19 @@ namespace MasterChechBotWebApi.Middlewares
 
         private readonly RequestDelegate _next;
 
-        public APIKeyMiddleware(RequestDelegate next)
+        public APIKeyMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
+            _configuration = configuration;
         }
 
-        IConfiguration GetValidKeyAppSettings()
-        {
-            return Program.ConfigurationBuilder();
-        }
+        //IConfiguration GetValidKeyAppSettings()
+        //{
+        //    return Program.ConfigurationBuilder();
+        //}
 
         public Task Invoke(HttpContext context)
         {
-            _configuration = GetValidKeyAppSettings();
-
             bool validKey = false;
 
             var apiKeyValid = _configuration["ApiKeyValid"];
