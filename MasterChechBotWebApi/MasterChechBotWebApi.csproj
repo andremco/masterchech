@@ -13,7 +13,6 @@
     <Folder Include="Middlewares\" />
     <Folder Include="Filters\" />
     <Folder Include="BotResponse\" />
-    <Folder Include="BotControl\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
@@ -37,5 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ValuesController.cs" />
+    <Compile Remove="BotControl\BotControl.cs" />
   </ItemGroup>
 </Project>

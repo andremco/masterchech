@@ -15,16 +15,16 @@ namespace Core.Context
 
         }
 
-        public Context()
+        public Context(string connectionString)
         {
-
+            ConnectionString = connectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(Context.ConnectionString);
+                optionsBuilder.UseSqlServer(ConnectionString);
                 optionsBuilder.UseLazyLoadingProxies();
             }
         }

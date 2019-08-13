@@ -12,6 +12,7 @@ using Core.Context;
 using Microsoft.EntityFrameworkCore;
 using Core.Repositories;
 using MasterChechBotWebApi.HostedService;
+using Core.Messages;
 
 namespace MasterChechBotWebApi
 {
@@ -66,6 +67,7 @@ namespace MasterChechBotWebApi
             });
 
             services.AddScoped<UnitOfWork>();
+            services.AddScoped<MessageOnShipBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

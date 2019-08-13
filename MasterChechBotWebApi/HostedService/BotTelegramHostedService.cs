@@ -22,7 +22,7 @@ namespace MasterChechBotWebApi.HostedService
         private readonly IServiceProvider _services;
         private readonly ILogger _logger;
         private readonly ITelegramBotClient _bot;
-        private readonly UnitOfWork _uow;
+        private readonly MessageOnShipBusiness _messageOnShipBusiness;
 
         public BotTelegramHostedService(IConfiguration configuration, IServiceProvider services,
             ILogger<BotTelegramHostedService> logger)
@@ -31,13 +31,11 @@ namespace MasterChechBotWebApi.HostedService
             _services = services;
             _logger = logger;
             _bot = new TelegramBotClient(_configuration["BotKey"]);
-            using (var scope = services.CreateScope())
-            {
-                var uow =
-                    scope.ServiceProvider
-                        .GetRequiredService<UnitOfWork>();
-                _uow = uow;
-            }
+
+            var context = new Context(_configuration["ConnectionStrings:DefaultConnection"]);
+            var uow = new UnitOfWork(context);
+            _messageOnShipBusiness = new MessageOnShipBusiness(uow);
+            
         }
 
         private void BotTelegram()
@@ -55,21 +53,19 @@ namespace MasterChechBotWebApi.HostedService
 
             if (text != null)
             {
-                var business = new MessageOnShipBusiness(_uow);
-
                 if (BotResponse.BotResponse.IsResponseTimeForTrouxa)
                 {
-                    var phrase = business.GetPhrase();
+                    var phrase = _messageOnShipBusiness.GetPhrase();
                     await BotResponse.BotResponse.ResponseTrouxa(_bot, e.Message.Chat, phrase);
                     BotResponse.BotResponse.IsResponseTimeForTrouxa = false;
                     return;
                 }
 
-                if (business.IsCommandForBot(text))
+                if (_messageOnShipBusiness.IsCommandForBot(text))
                 {
                     _logger.LogInformation($"Received a text message for user - {e.Message.From.Id} {e.Message.From.FirstName} {e.Message.From.LastName}.");
 
-                    var responseForUserEnum = business.CommandForBot(text);
+                    var responseForUserEnum = _messageOnShipBusiness.CommandForBot(text);
 
                     switch (responseForUserEnum)
                     {
@@ -79,7 +75,7 @@ namespace MasterChechBotWebApi.HostedService
                             break;
 
                         case ResponseForUserEnum.CulinariaDoDia:
-                            var culinariaDoDia = business.GetRandomRecipe();
+                            var culinariaDoDia = _messageOnShipBusiness.GetRandomRecipe();
                             if (!string.IsNullOrEmpty(culinariaDoDia))
                             {
                                 await BotResponse.BotResponse.Response(_bot, e.Message.Chat, culinariaDoDia);

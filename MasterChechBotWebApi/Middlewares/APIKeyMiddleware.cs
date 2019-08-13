@@ -20,11 +20,6 @@ namespace MasterChechBotWebApi.Middlewares
             _configuration = configuration;
         }
 
-        //IConfiguration GetValidKeyAppSettings()
-        //{
-        //    return Program.ConfigurationBuilder();
-        //}
-
         public Task Invoke(HttpContext context)
         {
             bool validKey = false;
