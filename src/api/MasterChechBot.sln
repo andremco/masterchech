@@ -1,10 +1,14 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.106
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterChechBotWebApi", "MasterChechBotWebApi\MasterChechBotWebApi.csproj", "{789F7D9C-929C-4EB7-BF59-FE1BB7FD4195}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{96D10CAC-BF1F-4849-9081-E81B612C4F30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{87DCAAF0-92AC-4D1F-A6E1-58E7140ED766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{CA9E9B9F-3FA3-42E7-BFCA-B54ECE7852E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +24,14 @@ Global
 		{96D10CAC-BF1F-4849-9081-E81B612C4F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96D10CAC-BF1F-4849-9081-E81B612C4F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96D10CAC-BF1F-4849-9081-E81B612C4F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87DCAAF0-92AC-4D1F-A6E1-58E7140ED766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87DCAAF0-92AC-4D1F-A6E1-58E7140ED766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87DCAAF0-92AC-4D1F-A6E1-58E7140ED766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87DCAAF0-92AC-4D1F-A6E1-58E7140ED766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA9E9B9F-3FA3-42E7-BFCA-B54ECE7852E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9E9B9F-3FA3-42E7-BFCA-B54ECE7852E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9E9B9F-3FA3-42E7-BFCA-B54ECE7852E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9E9B9F-3FA3-42E7-BFCA-B54ECE7852E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

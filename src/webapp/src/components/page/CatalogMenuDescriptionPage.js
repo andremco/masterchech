@@ -7,7 +7,7 @@ import { FormGroup, Input, Label, Button, Alert, FormFeedback } from 'reactstrap
 import { Formik } from 'formik'
 import ModalConfirmSuccess from "../modals/ModalConfirmSuccess";
 import LoadingOverlay from 'react-loading-overlay'
-import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
+//import PacmanLoader from '@bit/davidhu2000.react-spinners.pacman-loader';
 import { MDBDataTable } from 'mdbreact';
 import IconActions from '../modals/IconActions'
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -92,7 +92,9 @@ class CatalogMenuDescriptionPage extends React.Component {
         return(<React.Fragment>
                 <div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "80px"}}>
                     <LoadingOverlay active={this.props.loading} 
-                        spinner={<PacmanLoader size={20} color="#61dafb" style={{width:"5px !important", height:"5px !important", zIndex: "9999" }}/>}>
+                        spinner={
+                          // <PacmanLoader size={20} color="#61dafb" style={{width:"5px !important", height:"5px !important", zIndex: "9999" }}/>
+                        }>
                     </LoadingOverlay>
                     <h3>Cadastrar menu</h3>
                     <Formik initialValues={initialValues} onSubmit={this.onSubmit} validate={this.validate}>
