@@ -14,5 +14,5 @@ steps:
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
     filePath: './BuildNetApi.ps1'
-    arguments: 'PrivateBuildNetApi'
+    arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
   timeoutInMinutes: 10
