@@ -9,15 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: PowerShell@2
+- task: PowerShell@1
+  displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
     filePath: './BuildNetApi.ps1'
     arguments: 'PrivateBuildNetApi'
+  timeoutInMinutes: 10

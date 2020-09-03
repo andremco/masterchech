@@ -91,11 +91,11 @@ class CatalogMenuDescriptionPage extends React.Component {
 
         return(<React.Fragment>
                 <div className="col-lg-6 col-md-12 mx-auto" style={{marginTop: "80px"}}>
-                    <LoadingOverlay active={this.props.loading} 
+                    {/* <LoadingOverlay active={this.props.loading} 
                         spinner={
-                          // <PacmanLoader size={20} color="#61dafb" style={{width:"5px !important", height:"5px !important", zIndex: "9999" }}/>
+                          <PacmanLoader size={20} color="#61dafb" style={{width:"5px !important", height:"5px !important", zIndex: "9999" }}/>
                         }>
-                    </LoadingOverlay>
+                    </LoadingOverlay> */}
                     <h3>Cadastrar menu</h3>
                     <Formik initialValues={initialValues} onSubmit={this.onSubmit} validate={this.validate}>
                         {this.form}

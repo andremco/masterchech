@@ -1,11 +1,12 @@
-. .\environmentVariable.ps1
+. .\EnvironmentVariable.ps1
 . .\BuildFunctions.ps1
 
-Function CompileReact{
-	$sw = [Diagnostics.Stopwatch]::StartNew()
+Function PrivateBuildReact{
+
 	exec {
-		& npm install $source_web_app_dir
+		& cd $source_web_app_dir
+		& npm install
+		& npm run build
+		& cd $base_dir
 	}
-	$sw.Stop()
-	write-host "Build time: " $sw.Elapsed.ToString()
 }

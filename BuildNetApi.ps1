@@ -51,13 +51,10 @@ Function IntegrationTestNet{
 }
 
 Function PrivateBuildNetApi{
-	$sw = [Diagnostics.Stopwatch]::StartNew()
 	InitNet
 	CompileNet
 	UnitTestsNet
 	IntegrationTestNet
-	$sw.Stop()
-	write-host "Build time: " $sw.Elapsed.ToString()
 }
 
 
