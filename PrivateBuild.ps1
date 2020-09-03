@@ -1,8 +1,8 @@
-$env:ProjectName = "MasterChechBot"
-$env:BuildConfiguration = "Debug"
-$env:ApiDir = "\src\api"
-$env:WebAppDir = "\src\webapp"
-$env:Version = "1.0"
+$env:PROJECTNAME = "MasterChechBot"
+$env:BUILDCONFIGURATION = "Debug"
+$env:APIDIR = "\src\api"
+$env:WEBAPPDIR = "\src\webapp"
+$env:VERSION = "1.0"
 
 . .\BuildNetApi.ps1
 . .\BuildReactApp.ps1
