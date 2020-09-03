@@ -14,5 +14,5 @@ steps:
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
     filePath: './BuildNetApi.ps1'
-    arguments: 'InitNet'
+    arguments: ''
   timeoutInMinutes: 10
