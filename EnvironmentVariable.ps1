@@ -1,5 +1,5 @@
-$projectName = $env:ProjectName
-Write-Host $env:ProjectName
+$projectName = $env:PROJECTNAME
+Write-Host $env:PROJECTNAME
 if ([string]::IsNullOrEmpty($projectName)) { throw("Empty var projectName!") }
 
 $apiDir = $env:ApiDir
