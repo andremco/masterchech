@@ -16,3 +16,9 @@ steps:
     filePath: './BuildNetApi.ps1'
     arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
   timeoutInMinutes: 10
+
+- task: PowerShell@2
+  displayName: Build React WebApp $(ProjectName) $(Version)
+  inputs:
+    filePath: './BuildReactApp.ps1'
+    arguments: './BuildReactApp.ps1;  PrivateBuildReact'
