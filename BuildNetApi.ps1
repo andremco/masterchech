@@ -57,4 +57,4 @@ Function PrivateBuildNetApi{
 	IntegrationTestNet
 }
 
-
+Write-Host $env:ProjectName
