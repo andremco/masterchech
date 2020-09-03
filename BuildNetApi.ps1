@@ -56,5 +56,3 @@ Function PrivateBuildNetApi{
 	UnitTestsNet
 	IntegrationTestNet
 }
-
-PrivateBuildNetApi
