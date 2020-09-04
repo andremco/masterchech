@@ -10,6 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- pwsh: Write-Host $(System.DefaultWorkingDirectory)
 - task: PowerShell@2
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
@@ -22,3 +23,4 @@ steps:
   inputs:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
+  timeoutInMinutes: 10
