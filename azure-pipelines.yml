@@ -21,6 +21,7 @@ steps:
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/*.trx'
+    searchFolder: '$(System.DefaultWorkingDirectory)/build/test'
     failTaskOnFailedTests: true
 
 - task: PowerShell@2
