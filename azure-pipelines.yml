@@ -9,7 +9,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
 - task: PowerShell@2
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
@@ -17,8 +16,16 @@ steps:
     arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
   timeoutInMinutes: 10
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'XUnit'
+    testResultsFiles: '**/*.trx'
+    failTaskOnFailedTests: true
+
 - task: PowerShell@2
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
+  timeoutInMinutes: 10
+
