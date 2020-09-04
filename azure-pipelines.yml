@@ -16,7 +16,8 @@ steps:
     filePath: './BuildNetApi.ps1'
     arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
   timeoutInMinutes: 10
-
+  continueOnError: true
+  
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: VSTest
