@@ -8,7 +8,7 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-  
+
 steps:
 - task: PowerShell@2
   displayName: Build Net Api $(ProjectName) $(Version)
@@ -19,10 +19,10 @@ steps:
   continueOnError: true
   
 - task: PublishTestResults@2
+  displayName: Publish Results Tests $(ProjectName) $(Version)
   inputs:
     testResultsFormat: VSTest
     testResultsFiles: '**/*.trx'
-    searchFolder: '$(System.DefaultWorkingDirectory)/build/test'
     failTaskOnFailedTests: true
 
 - task: PowerShell@2
