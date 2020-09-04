@@ -10,4 +10,4 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- pwsh: Write-Host $(System.DefaultWorkingDirectory)
+- pwsh: Write-Host "Hello " + $(System.DefaultWorkingDirectory)
