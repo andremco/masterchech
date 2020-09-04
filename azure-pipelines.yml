@@ -19,7 +19,7 @@ steps:
   continueOnError: true
   
 - task: PublishTestResults@2
-  displayName: Publish Results Tests $(ProjectName) $(Version)
+  displayName: Publish Test Result  $(ProjectName) $(Version)
   inputs:
     testResultsFormat: VSTest
     testResultsFiles: '**/*.trx'
