@@ -28,4 +28,3 @@ pool:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
   timeoutInMinutes: 10
-
