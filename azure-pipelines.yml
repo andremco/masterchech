@@ -19,7 +19,7 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFormat: 'XUnit'
+    testResultsFormat: VSTest
     testResultsFiles: '**/*.trx'
     searchFolder: '$(System.DefaultWorkingDirectory)/build/test'
     failTaskOnFailedTests: true
