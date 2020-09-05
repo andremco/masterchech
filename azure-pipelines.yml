@@ -18,20 +18,20 @@ steps:
   timeoutInMinutes: 10
   continueOnError: true
   
-- task: PublishTestResults@2
-  displayName: Publish Test Result  $(ProjectName) $(Version)
-  inputs:
-    testResultsFormat: VSTest
-    testResultsFiles: '**/*.trx'
-    failTaskOnFailedTests: true
-
 - task: PublishCodeCoverageResults@1
   displayName: Publish code coverage report $(ProjectName) $(Version) $(System.DefaultWorkingDirectory)
   inputs:
     codeCoverageTool: cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/build/test/coverage/reports'
-    failIfCoverageEmpty: true
+    failIfCoverageEmpty: true 
+
+- task: PublishTestResults@2
+  displayName: Publish Test Result  $(ProjectName) $(Version)
+  inputs:
+    testResultsFormat: VSTest
+    testResultsFiles: '**/*.trx'
+    failTaskOnFailedTests: true
 
 - task: PowerShell@2
   displayName: Build React WebApp $(ProjectName) $(Version)
