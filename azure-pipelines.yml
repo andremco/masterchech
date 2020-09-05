@@ -26,10 +26,10 @@ steps:
     failTaskOnFailedTests: true
 
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage report $(Build.SourcesDirectory)'
+  displayName: Publish code coverage report $(ProjectName) $(Version)
   inputs:
-    codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+    codeCoverageTool: cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/build/test/Coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
 
 - task: PowerShell@2
