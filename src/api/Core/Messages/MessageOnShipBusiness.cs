@@ -14,7 +14,7 @@ namespace Core.Messages
             _uow = unitOfWork;
         }
 
-        private string[] _responsePhrases {
+        public string[] ResponsePhrases {
             get{
                 return new string[] { "um bocó", "um trouxa", "um sfilkis", "um vacilão",
                     "um tonto", "um tapado", "uma besta", "uma goiaba", "uma cibola",
@@ -60,11 +60,11 @@ namespace Core.Messages
 
         public string GetPhrase()
         {
-            var payload = _responsePhrases;
+            var payload = ResponsePhrases;
 
             var randomNumber = new Random().Next(payload.Length);
 
-            return _responsePhrases[randomNumber];
+            return ResponsePhrases[randomNumber];
         }
 
         public string GetRandomRecipe()
