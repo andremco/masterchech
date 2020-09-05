@@ -30,7 +30,7 @@ Function UnitTestsNet{
 	try {
 		exec {
 			& dotnet test -nologo -v $verbosity --logger:trx --results-directory $test_dir --no-build --no-restore --configuration $projectConfig /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$test_dir\Coverage\
-			& dotnet reportgenerator "-reports:$test_dir\Coverage\coverage.cobertura.xml" "-targetDir:$test_dir\Coverage\Reports" -tag:$version -reportTypes:htmlInline
+			& dotnet reportgenerator "-reports:$test_dir/Coverage/coverage.cobertura.xml" "-targetDir:$test_dir/Coverage/Reports" -tag:$version -reportTypes:htmlInline
 		}
 	}
 	finally {
@@ -44,7 +44,7 @@ Function IntegrationTestNet{
 	try {
 		exec {
 			& dotnet test -nologo -v $verbosity --logger:trx --results-directory $test_dir --no-build --no-restore --configuration $projectConfig /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$test_dir\Coverage\
-			& dotnet reportgenerator "-reports:$test_dir\Coverage\coverage.cobertura.xml" "-targetDir:$test_dir\Coverage\Reports" -tag:$version -reportTypes:htmlInline
+			& dotnet reportgenerator "-reports:$test_dir/Coverage/coverage.cobertura.xml" "-targetDir:$test_dir/Coverage/Reports" -tag:$version -reportTypes:htmlInline
 		}
 	}
 	finally {
