@@ -6,10 +6,10 @@ Function InitNet {
 	md $build_dir > $null
 
 	exec {
-		& dotnet clean $source_api_dir\$projectName.sln -nologo -v $verbosity
+		& dotnet clean $source_api_dir/$projectName.sln -nologo -v $verbosity
 		}
 	exec {
-		& dotnet restore $source_api_dir\$projectName.sln -nologo --interactive -v $verbosity  
+		& dotnet restore $source_api_dir/$projectName.sln -nologo --interactive -v $verbosity  
 		}
     
 
@@ -20,7 +20,7 @@ Function InitNet {
 
 Function CompileNet{
 	exec {
-		& dotnet build $source_api_dir\$projectName.sln -nologo --no-restore -v $verbosity -maxcpucount --configuration $projectConfig --no-incremental /p:Version=$version /p:Authors="Andre" /p:Product="Architecture"
+		& dotnet build $source_api_dir/$projectName.sln -nologo --no-restore -v $verbosity -maxcpucount --configuration $projectConfig --no-incremental /p:Version=$version /p:Authors="Andre" /p:Product="Architecture"
 	}
 }
 
@@ -30,7 +30,7 @@ Function UnitTestsNet{
 	try {
 		exec {
 			& dotnet test -nologo -v $verbosity --logger:trx --results-directory $test_dir --no-build --no-restore --configuration $projectConfig /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$test_dir\Coverage\
-			& dotnet reportgenerator "-reports:$test_dir/Coverage/coverage.cobertura.xml" "-targetDir:$test_dir/Coverage/Reports" -tag:$version -reportTypes:htmlInline
+			& dotnet reportgenerator "-reports:$test_dir\Coverage\coverage.cobertura.xml" "-targetDir:$test_dir\Coverage\Reports" -tag:$version -reportTypes:htmlInline
 		}
 	}
 	finally {
@@ -44,7 +44,7 @@ Function IntegrationTestNet{
 	try {
 		exec {
 			& dotnet test -nologo -v $verbosity --logger:trx --results-directory $test_dir --no-build --no-restore --configuration $projectConfig /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$test_dir\Coverage\
-			& dotnet reportgenerator "-reports:$test_dir/Coverage/coverage.cobertura.xml" "-targetDir:$test_dir/Coverage/Reports" -tag:$version -reportTypes:htmlInline
+			& dotnet reportgenerator "-reports:$test_dir\Coverage\coverage.cobertura.xml" "-targetDir:$test_dir\Coverage\Reports" -tag:$version -reportTypes:htmlInline
 		}
 	}
 	finally {
