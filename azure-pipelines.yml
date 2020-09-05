@@ -28,9 +28,8 @@ steps:
 - task: PublishCodeCoverageResults@1
   displayName: Publish code coverage report $(ProjectName) $(Version) $(System.DefaultWorkingDirectory)
   inputs:
-    codeCoverageTool: cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/coverage.cobertura.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/build/test/Coverage/Reports'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
 
 - task: PowerShell@2
