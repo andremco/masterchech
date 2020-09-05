@@ -30,6 +30,7 @@ steps:
   inputs:
     codeCoverageTool: cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/**/coverage.cobertura.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/build/test/Coverage/Reports'
     failIfCoverageEmpty: true
 
 - task: PowerShell@2
