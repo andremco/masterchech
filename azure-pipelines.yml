@@ -10,32 +10,17 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: PowerShell@2
-  displayName: Build Net Api $(ProjectName) $(Version)
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
   inputs:
-    filePath: './BuildNetApi.ps1'
-    arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
-  timeoutInMinutes: 10
-  continueOnError: true
-  
-- task: PublishTestResults@2
-  displayName: Publish Test Result  $(ProjectName) $(Version)
-  inputs:
-    testResultsFormat: VSTest
-    testResultsFiles: '**/*.trx'
-    failTaskOnFailedTests: true
+    command: 'test'
+    projects: '**/*Tests.csproj'
+    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/MyCoverage/'
+    publishTestResults: true
 
 - task: PublishCodeCoverageResults@1
-  displayName: Publish code coverage report $(ProjectName) $(Version) $(System.DefaultWorkingDirectory)
+  displayName: 'Publish Code Coverage Results'
   inputs:
-    codeCoverageTool: cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/**/coverage.cobertura.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/build/test/Coverage/Reports'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/MyCoverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
-
-- task: PowerShell@2
-  displayName: Build React WebApp $(ProjectName) $(Version)
-  inputs:
-    filePath: './BuildReactApp.ps1'
-    arguments: './BuildReactApp.ps1;  PrivateBuildReact'
-  timeoutInMinutes: 10
