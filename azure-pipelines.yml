@@ -29,7 +29,7 @@ steps:
   displayName: Publish code coverage report $(ProjectName) $(Version) $(System.DefaultWorkingDirectory)
   inputs:
     codeCoverageTool: cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/**/coverage.cobertura.xml'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/coverage.cobertura.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/build/test/Coverage/Reports'
     failIfCoverageEmpty: true
 
