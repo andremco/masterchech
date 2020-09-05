@@ -17,8 +17,8 @@ $projectConfig = $env:BUILDCONFIGURATION
 $version = $env:VERSION
 $verbosity = "m"
 
-$build_dir = "$base_dir/build"
-$test_dir = "$build_dir/test"
+$build_dir = resolve-path "$base_dir/build"
+$test_dir =  resolve-path "$build_dir/test"
 
 if ([string]::IsNullOrEmpty($version)) { $version = "9.9.9"}
 if ([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}

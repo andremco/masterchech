@@ -1,7 +1,7 @@
 $env:PROJECTNAME = "MasterChechBot"
 $env:BUILDCONFIGURATION = "Debug"
-$env:APIDIR = "\src\api"
-$env:WEBAPPDIR = "\src\webapp"
+$env:APIDIR = "/src/api"
+$env:WEBAPPDIR = "/src/webapp"
 $env:VERSION = "1.0"
 
 . .\BuildNetApi.ps1
