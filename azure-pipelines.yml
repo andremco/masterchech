@@ -10,13 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: DotNetCoreCLI@2
-  displayName: 'Install ReportGenerator'
-  inputs:
-    command: custom
-    custom: tool
-    arguments: 'install --global dotnet-reportgenerator-globaltool'
-
 - task: PowerShell@2
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
@@ -33,10 +26,10 @@ steps:
     failTaskOnFailedTests: true
 
 - task: PublishCodeCoverageResults@1
-  displayName: Publish code coverage report $(ProjectName) $(Version)
+  displayName: Publish code coverage report $(ProjectName) $(Version) $(System.DefaultWorkingDirectory)
   inputs:
     codeCoverageTool: cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/coverage.cobertura.xml'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/Coverage/**/coverage.cobertura.xml'
     failIfCoverageEmpty: true
 
 - task: PowerShell@2
