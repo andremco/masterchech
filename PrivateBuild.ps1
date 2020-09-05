@@ -9,6 +9,6 @@ $env:VERSION = "1.0"
 
 $sw = [Diagnostics.Stopwatch]::StartNew()
 PrivateBuildNetApi
-#PrivateBuildReact
+PrivateBuildReact
 $sw.Stop()
 write-host "Build time: " $sw.Elapsed.ToString()

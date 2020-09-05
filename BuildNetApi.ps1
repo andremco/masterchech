@@ -56,4 +56,5 @@ Function PrivateBuildNetApi{
 	InitNet
 	CompileNet
 	UnitTestsNet
+	IntegrationTestNet
 }
