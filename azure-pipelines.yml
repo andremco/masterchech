@@ -26,7 +26,7 @@ steps:
     failTaskOnFailedTests: true
 
 - task: PublishCodeCoverageResults@1
-  displayName: Publish code coverage report $(ProjectName) $(Version) $(System.DefaultWorkingDirectory)
+  displayName: Publish Code Coverage Report $(ProjectName) $(Version)
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
