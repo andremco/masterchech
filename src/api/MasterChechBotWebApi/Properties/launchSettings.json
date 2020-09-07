@@ -13,6 +13,9 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
+        "ApiKeyValid": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJadWVybyB0b3AgYm90IiwiaWF0IjoxNTYzMDYyNTQ4LCJleHAiOjE1OTQ1OTg1NDgsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6ImFuZHJlbWNvMTk5MkBvdXRsb29rLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.2xwTrWlpFu4uJStgS7OnHvcz25qt7puSj-fFAv9kq_0",
+        "BotKey": "981824703:AAFcJ6ZffLJ27Zyfi0Ckh_WgCiEw0dQ2K40",
+        "ConnectionString": "Server=tcp:masterchech.database.windows.net,1433;Initial Catalog=masterchech;Persist Security Info=False;User ID=masterchech;Password=@liveira92;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

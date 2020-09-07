@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  master.chech.bot.webapi:
+    image: master-chech-bot-webapi
+    build:
+      context: .
+      dockerfile: ./dockerfiles/api/Dockerfile
+    ports:
+      - "5002:80"
+    environment:
+      TZ: America/Sao_Paulo
+      BotKey: "981824703:AAFcJ6ZffLJ27Zyfi0Ckh_WgCiEw0dQ2K40"
+      ApiKeyValid: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJadWVybyB0b3AgYm90IiwiaWF0IjoxNTYzMDYyNTQ4LCJleHAiOjE1OTQ1OTg1NDgsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6ImFuZHJlbWNvMTk5MkBvdXRsb29rLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.2xwTrWlpFu4uJStgS7OnHvcz25qt7puSj-fFAv9kq_0"
+      ConnectionString: "Server=tcp:masterchech.database.windows.net,1433;Initial Catalog=masterchech;Persist Security Info=False;User ID=masterchech;Password=@liveira92;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"

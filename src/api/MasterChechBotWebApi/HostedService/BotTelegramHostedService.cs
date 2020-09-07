@@ -30,12 +30,23 @@ namespace MasterChechBotWebApi.HostedService
             _configuration = configuration;
             _services = services;
             _logger = logger;
-            _bot = new TelegramBotClient(_configuration["BotKey"]);
 
-            var context = new Context(_configuration["ConnectionStrings:DefaultConnection"]);
+            var botKey = System.Environment.GetEnvironmentVariable("BotKey");
+            if (string.IsNullOrEmpty(botKey))
+            {
+                throw new NullReferenceException("BotKey");
+            }
+            _bot = new TelegramBotClient(botKey);
+
+            var connectionString = System.Environment.GetEnvironmentVariable("ConnectionString");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new NullReferenceException("ConnectionString");
+            }
+            var context = new Context(connectionString);
+
             var uow = new UnitOfWork(context);
             _messageOnShipBusiness = new MessageOnShipBusiness(uow);
-            
         }
 
         private void BotTelegram()

@@ -24,7 +24,7 @@ namespace MasterChechBotWebApi.Middlewares
         {
             bool validKey = false;
 
-            var apiKeyValid = _configuration["ApiKeyValid"];
+            var apiKeyValid = System.Environment.GetEnvironmentVariable("ApiKeyValid");
 
             if (apiKeyValid == null)
             {
