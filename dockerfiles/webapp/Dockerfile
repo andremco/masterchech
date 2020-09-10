@@ -1,3 +1,10 @@
 FROM nginx:latest
+
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL $REACT_APP_API_URL
+
+ARG REACT_APP_API_KEY_HEADER
+ENV REACT_APP_API_KEY_HEADER $REACT_APP_API_KEY_HEADER
+
 COPY ./deploy/webapp/ /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]

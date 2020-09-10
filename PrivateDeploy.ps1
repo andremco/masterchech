@@ -9,6 +9,7 @@ $env:VERSION = "1.0"
 
 $sw = [Diagnostics.Stopwatch]::StartNew()
 PrivateBuildNetApi
+PrivateBuildReact
 $csProjWebApi = "$env:APIDIR/$env:PROJECTNAME""WebApi""/$env:PROJECTNAME""WebApi"".csproj"
 # Publish Net Core Api
 exec {
