@@ -32,19 +32,12 @@ steps:
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
 
-- task: PowerShell@2
-  displayName: Build React WebApp $(ProjectName) $(Version)
-  inputs:
-    filePath: './BuildReactApp.ps1'
-    arguments: './BuildReactApp.ps1;  PrivateBuildReact'
-  timeoutInMinutes: 10
-
 - task: DotNetCoreCLI@2
   displayName: Publish WebApi Net Core $(ProjectName) $(Version)
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '-c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
+    arguments: '--no-build --no-restore -c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
@@ -52,4 +45,11 @@ steps:
     pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
     artifactName: '$(ProjectName)WebApi$(BuildID)'
     publishLocation: 'Container'
+
+- task: PowerShell@2
+  displayName: Build React WebApp $(ProjectName) $(Version)
+  inputs:
+    filePath: './BuildReactApp.ps1'
+    arguments: './BuildReactApp.ps1;  PrivateBuildReact'
+  timeoutInMinutes: 10
 
