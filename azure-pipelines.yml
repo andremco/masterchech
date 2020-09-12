@@ -43,6 +43,5 @@ steps:
   displayName: Publish WebApi Net Core $(ProjectName) $(Version)
   inputs:
     command: 'publish'
-    publishWebProjects: false
-    projects: '$(System.DefaultWorkingDirectory)/$(ApiDir)/$(ProjectName)WebApi/$(ProjectName)WebApi.csproj'
+    publishWebProjects: true
     arguments: '-c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
