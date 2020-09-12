@@ -47,6 +47,7 @@ steps:
     arguments: '-c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
   inputs:
     pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
     artifactName: '$(ProjectName)WebApi'
