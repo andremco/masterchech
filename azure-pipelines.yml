@@ -43,7 +43,7 @@ steps:
   displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
   inputs:
     pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
-    artifactName: '$(ProjectName)WebApi$(BuildID)'
+    artifactName: '$(ProjectName)WebApi-$(BuildID)'
     publishLocation: 'Container'
 
 - task: PowerShell@2
