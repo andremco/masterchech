@@ -40,10 +40,10 @@ steps:
     arguments: '--no-build --no-restore -c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version) $(Build.BuildNumber)
+  displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
   inputs:
     pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
-    artifactName: '$(ProjectName)WebApi$(Build.BuildNumber)'
+    artifactName: '$(ProjectName)WebApi$(Version)'
     publishLocation: 'Container'
 
 - task: PowerShell@2
