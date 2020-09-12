@@ -3,8 +3,6 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-name: $(Date:MMdd)$(Rev:.r)
-
 trigger:
 - master
 
@@ -45,7 +43,7 @@ steps:
   displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
   inputs:
     pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
-    artifactName: '$(ProjectName)WebApi$(Version)'
+    artifactName: '$(ProjectName)WebApi'
     publishLocation: 'Container'
 
 - task: PowerShell@2
