@@ -45,3 +45,10 @@ steps:
     command: 'publish'
     publishWebProjects: true
     arguments: '-c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
+    artifactName: '$(ProjectName)WebApi'
+    publishLocation: 'Container'
+
