@@ -38,3 +38,11 @@ steps:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
   timeoutInMinutes: 10
+
+- task: DotNetCoreCLI@2
+  displayName: Publish WebApi Net Core $(ProjectName) $(Version)
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '$(System.DefaultWorkingDirectory)/$(ApiDir)/$(ProjectName)WebApi/$(ProjectName)WebApi.csproj'
+    arguments: '-c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
