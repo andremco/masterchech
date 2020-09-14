@@ -37,12 +37,12 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '--no-build --no-restore -c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/deploy/api/'
+    arguments: '--no-build --no-restore -c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/publish'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
   inputs:
-    pathtoPublish: '$(System.DefaultWorkingDirectory)/deploy/api/'
+    pathtoPublish: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/publish'
     artifactName: '$(ProjectName)WebApi'
     publishLocation: 'Container'
 
