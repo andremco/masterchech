@@ -4,8 +4,8 @@ services:
   master.chech.bot.webapi:
     image: master-chech-bot-webapi
     build:
-      context: .
-      dockerfile: ./dockerfiles/api/Dockerfile
+      context: ./src/api/MasterChechBotWebApi/
+      dockerfile: Dockerfile
     ports:
       - "5002:80"
     environment:
@@ -16,10 +16,10 @@ services:
   master.chech.bot.webapp:
     image: master-chech-bot-webapp
     build:
-      context: .
-      dockerfile: ./dockerfiles/webapp/Dockerfile
+      context: ./src/webapp/
+      dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: "http://master.chech.bot.webapi:80"
-        REACT_APP_API_KEY_HEADER: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJadWVybyB0b3AgYm90IiwiaWF0IjoxNTYzMDYyNTQ4LCJleHAiOjE1OTQ1OTg1NDgsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6ImFuZHJlbWNvMTk5MkBvdXRsb29rLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.2xwTrWlpFu4uJStgS7OnHvcz25qt7puSj-fFAv9kq_0"
+        ReactAppApiUrl: "http://master.chech.bot.webapi:80"
+        ReactAppApiKeyHeader: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJadWVybyB0b3AgYm90IiwiaWF0IjoxNTYzMDYyNTQ4LCJleHAiOjE1OTQ1OTg1NDgsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6ImFuZHJlbWNvMTk5MkBvdXRsb29rLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.2xwTrWlpFu4uJStgS7OnHvcz25qt7puSj-fFAv9kq_0"
     ports:
       - "5001:80"

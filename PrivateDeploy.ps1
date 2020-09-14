@@ -13,12 +13,7 @@ PrivateBuildReact
 $csProjWebApi = "$env:APIDIR/$env:PROJECTNAME""WebApi""/$env:PROJECTNAME""WebApi"".csproj"
 # Publish Net Core Api
 exec {
-    & dotnet publish "./$csProjWebApi" -c $env:BUILDCONFIGURATION -o ./deploy/api/
-}
-# Publish React Web App
-exec{
-	& Remove-Item –path "./deploy/webapp/*" -Recurse
-	& Copy-Item "$source_web_app_dir/build/*" -Destination './deploy/webapp' -Recurse
+    & dotnet publish "./$csProjWebApi" -c $env:BUILDCONFIGURATION --no-restore --no-build -o "./$env:APIDIR/$env:PROJECTNAME""WebApi""/publish/"
 }
 # Docker compose applications
 exec {
