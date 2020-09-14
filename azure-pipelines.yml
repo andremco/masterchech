@@ -46,6 +46,18 @@ steps:
     artifactName: '$(ProjectName)WebApi'
     publishLocation: 'Container'
 
+- task: Docker@2
+  displayName: Build and Push Docker Image WebApi Net Core $(ProjectName) $(Version)
+  inputs:
+    containerRegistry: 'Container Registry MasterChech'
+    repository: 'master-chech-webapi'
+    command: 'buildAndPush'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/Dockerfile'
+    buildContext: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/'
+    tags: |
+      $(Build.BuildId)
+      latest
+
 - task: PowerShell@2
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
