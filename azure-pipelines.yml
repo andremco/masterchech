@@ -11,6 +11,7 @@ pool:
 
 steps:
 - task: AzureKeyVault@1
+  displayName: Azure Key Vault $(ProjectName)
   inputs:
     azureSubscription: 'Visual Studio Enterprise (e945f6ed-8c00-4129-8ecd-263ec98eaf36)'
     KeyVaultName: 'key-vault-masterchech'
@@ -39,13 +40,6 @@ steps:
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
-    ArtifactName: 'script-powershell-for-deploy'
-    publishLocation: 'Container'
-
 - task: Docker@2
   displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
   inputs:
@@ -72,8 +66,8 @@ steps:
     containerRegistry: 'Container Registry MasterChech'
     repository: 'master-chech-webapp'
     command: build
-    Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/webapp/Dockerfile'
-    buildContext: '$(System.DefaultWorkingDirectory)/src/api/webapp/'    
+    Dockerfile: '$(System.DefaultWorkingDirectory)/src/webapp/Dockerfile'
+    buildContext: '$(System.DefaultWorkingDirectory)/src/webapp/'    
     tags:  |
       $(Build.BuildId)
       latest
@@ -88,3 +82,10 @@ steps:
     tags:  |
       $(Build.BuildId)
       latest
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
+    ArtifactName: 'script-powershell-for-deploy'
+    publishLocation: 'Container'      
