@@ -19,4 +19,5 @@ az container create --name master-chech-webapp --resource-group masterchech `
                     --registry-username $userNameAZCR `
                     --registry-password $passAZCR `
                     --dns-name-label master-chech-webapp `
-                    --query ipAddress.fqdn                    
+                    --query ipAddress.fqdn `
+                    --environment-variables ApiKeyValid=$apiKeyHeader
