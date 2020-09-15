@@ -63,7 +63,6 @@ steps:
   inputs:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
-    failOnStderr: true
   timeoutInMinutes: 10
   continueOnError: false
 

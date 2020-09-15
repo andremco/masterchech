@@ -5,7 +5,6 @@ Function PrivateBuildReact{
 
 	exec {
 		& cd $source_web_app_dir
-		& npm update
 		& npm install 
 		& npm run build
 		& cd $base_dir
