@@ -43,7 +43,7 @@ steps:
   displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
-    ArtifactName: ''
+    ArtifactName: 'script-powershell-for-deploy'
     publishLocation: 'Container'
 
 - task: Docker@2
