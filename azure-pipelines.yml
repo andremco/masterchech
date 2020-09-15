@@ -53,7 +53,7 @@ steps:
       latest
 
 - task: PowerShell@2
-  displayName: Build React WebApp React $(ProjectName) $(Version)
+  displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
@@ -61,7 +61,7 @@ steps:
   continueOnError: false
 
 - task: Docker@2
-  displayName: Build
+  displayName: Build Docker Image React WebApp $(ProjectName) $(Version)
   inputs:
     containerRegistry: 'Container Registry MasterChech'
     repository: 'master-chech-webapp'
@@ -74,7 +74,7 @@ steps:
     arguments: --build-arg ReactAppApiUrl='http://master-chech-webapi.brazilsouth.azurecontainer.io:80' ReactAppApiKeyHeader=$(API-KEY-HEADER) 
 
 - task: Docker@2
-  displayName: Push
+  displayName: Push Docker Image React WebApp $(ProjectName) $(Version)
   inputs:
     containerRegistry: 'Container Registry MasterChech'
     repository: 'master-chech-webapp'  
