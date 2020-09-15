@@ -19,35 +19,28 @@ steps:
   continueOnError: true
   
 - task: PublishTestResults@2
-  displayName: Publish Test Result  $(ProjectName) $(Version)
+  displayName: Publish Test Result Net Api $(ProjectName) $(Version)
   inputs:
     testResultsFormat: VSTest
     testResultsFiles: '**/*.trx'
     failTaskOnFailedTests: true
 
 - task: PublishCodeCoverageResults@1
-  displayName: Publish Code Coverage Report $(ProjectName) $(Version)
+  displayName: Publish Code Coverage Report Net Api $(ProjectName) $(Version)
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
 
-- task: DotNetCoreCLI@2
-  displayName: Publish WebApi Net Core $(ProjectName) $(Version)
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--no-build --no-restore -c $(BuildConfiguration) -o $(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/publish'
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish Artifacts WebApi Net Core $(ProjectName) $(Version)
-  inputs:
-    pathtoPublish: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/publish'
-    artifactName: '$(ProjectName)WebApi'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   displayName: Publish Artifacts Net Api $(ProjectName) $(Version)
+#   inputs:
+#     pathtoPublish: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/publish'
+#     artifactName: '$(ProjectName)WebApi'
+#     publishLocation: 'Container'
 
 - task: Docker@2
-  displayName: Build and Push Docker Image WebApi Net Core $(ProjectName) $(Version)
+  displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
   inputs:
     containerRegistry: 'Container Registry MasterChech'
     repository: 'master-chech-webapi'
@@ -59,7 +52,7 @@ steps:
       latest
 
 - task: PowerShell@2
-  displayName: Build React WebApp $(ProjectName) $(Version)
+  displayName: Build React WebApp React $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
