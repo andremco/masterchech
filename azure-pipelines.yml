@@ -16,7 +16,7 @@ steps:
     filePath: './BuildNetApi.ps1'
     arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
   timeoutInMinutes: 10
-  continueOnError: true
+  continueOnError: false
   
 - task: PublishTestResults@2
   displayName: Publish Test Result Net Api $(ProjectName) $(Version)
@@ -31,6 +31,12 @@ steps:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
 - task: Docker@2
   displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
@@ -49,5 +55,7 @@ steps:
   inputs:
     filePath: './BuildReactApp.ps1'
     arguments: './BuildReactApp.ps1;  PrivateBuildReact'
+    failOnStderr: true
   timeoutInMinutes: 10
+  continueOnError: false
 
