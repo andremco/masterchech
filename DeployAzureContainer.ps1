@@ -20,4 +20,4 @@ az container create --name master-chech-webapp --resource-group masterchech `
                     --registry-password $passAZCR `
                     --dns-name-label master-chech-webapp `
                     --query ipAddress.fqdn `
-                    --environment-variables ApiKeyValid=$apiKeyHeader
+                    --environment-variables ReactAppApiUrl=$apiKeyHeader ReactAppApiKeyHeader='http://master-chech-webapi.brazilsouth.azurecontainer.io:80'
