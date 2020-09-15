@@ -26,18 +26,11 @@ steps:
     failTaskOnFailedTests: true
 
 - task: PublishCodeCoverageResults@1
-  displayName: Publish Code Coverage Report Net Api $(ProjectName) $(Version)
+  displayName: Publish Code Coverage Net Api $(ProjectName) $(Version)
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
     failIfCoverageEmpty: true
-
-# - task: PublishBuildArtifacts@1
-#   displayName: Publish Artifacts Net Api $(ProjectName) $(Version)
-#   inputs:
-#     pathtoPublish: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/publish'
-#     artifactName: '$(ProjectName)WebApi'
-#     publishLocation: 'Container'
 
 - task: Docker@2
   displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
