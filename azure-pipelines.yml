@@ -10,6 +10,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise (e945f6ed-8c00-4129-8ecd-263ec98eaf36)'
+    KeyVaultName: 'key-vault-masterchech'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+
 - task: PowerShell@2
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
@@ -33,9 +40,10 @@ steps:
     failIfCoverageEmpty: true
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
-    ArtifactName: 'drop'
+    ArtifactName: ''
     publishLocation: 'Container'
 
 - task: Docker@2
@@ -59,3 +67,25 @@ steps:
   timeoutInMinutes: 10
   continueOnError: false
 
+- task: Docker@2
+  displayName: Build
+  inputs:
+    containerRegistry: 'Container Registry MasterChech'
+    repository: 'master-chech-webapp'
+    command: build
+    Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/webapp/Dockerfile'
+    buildContext: '$(System.DefaultWorkingDirectory)/src/api/webapp/'    
+    tags:  |
+      $(Build.BuildId)
+      latest
+    arguments: --build-arg ReactAppApiUrl='http://master-chech-webapi.brazilsouth.azurecontainer.io:80' ReactAppApiKeyHeader=$(API-KEY-HEADER) 
+
+- task: Docker@2
+  displayName: Push
+  inputs:
+    containerRegistry: 'Container Registry MasterChech'
+    repository: 'master-chech-webapp'  
+    command: push
+    tags:  |
+      $(Build.BuildId)
+      latest
