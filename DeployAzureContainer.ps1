@@ -12,3 +12,11 @@ az container create --name master-chech-webapi --resource-group masterchech `
                     --dns-name-label master-chech-webapi `
                     --query ipAddress.fqdn `
                     --environment-variables ApiKeyValid=$apiKeyHeader BotKey=$botKeyTelegram ConnectionString=$connectionString
+
+az container create --name master-chech-webapp --resource-group masterchech `
+                    --image masterchech.azurecr.io/master-chech-webapp:latest `
+                    --registry-login-server masterchech.azurecr.io `
+                    --registry-username $userNameAZCR `
+                    --registry-password $passAZCR `
+                    --dns-name-label master-chech-webapp `
+                    --query ipAddress.fqdn                    
