@@ -71,7 +71,7 @@ steps:
     tags:  |
       $(Build.BuildId)
       latest
-    arguments: --build-arg ReactAppApiUrl='http://master-chech-webapi.brazilsouth.azurecontainer.io:80' ReactAppApiKeyHeader=$(API-KEY-HEADER) 
+    #arguments: --build-arg ReactAppApiUrl='http://master-chech-webapi.brazilsouth.azurecontainer.io:80' ReactAppApiKeyHeader=$(API-KEY-HEADER) 
 
 - task: Docker@2
   displayName: Push Docker Image React WebApp $(ProjectName) $(Version)
