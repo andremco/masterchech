@@ -56,7 +56,7 @@ steps:
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
-    arguments: './BuildReactApp.ps1;  CIBuildReact'
+    arguments: './BuildReactApp.ps1;  $env:URLAPI=http://master-chech-webapi.brazilsouth.azurecontainer.io; $env:APIKEYHEADER=$(API-KEY-HEADER); CIBuildReact;'
   timeoutInMinutes: 10
   continueOnError: false
 
@@ -71,7 +71,6 @@ steps:
     tags:  |
       $(Build.BuildId)
       latest
-    arguments: --build-arg ReactAppApiUrl='http://master-chech-webapi.brazilsouth.azurecontainer.io:80' --build-arg ReactAppApiKeyHeader='$(API-KEY-HEADER)'
 
 - task: Docker@2
   displayName: Push Docker Image React WebApp $(ProjectName) $(Version)
