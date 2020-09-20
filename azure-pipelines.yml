@@ -56,7 +56,7 @@ steps:
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
-    arguments: './BuildReactApp.ps1;  $env:URLAPI="http://master-chech-webapi.brazilsouth.azurecontainer.io"; $env:APIKEYHEADER=$(API-KEY-HEADER); CIBuildReact;'
+    arguments: './BuildReactApp.ps1;  $env:URLAPI="http://master-chech-webapi.brazilsouth.azurecontainer.io"; $env:APIKEYHEADER="$(API-KEY-HEADER)"; CIBuildReact;'
   timeoutInMinutes: 10
   continueOnError: false
 
