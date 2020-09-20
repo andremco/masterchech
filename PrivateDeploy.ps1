@@ -8,8 +8,8 @@ $env:VERSION = "1.0"
 . .\BuildReactApp.ps1
 
 $sw = [Diagnostics.Stopwatch]::StartNew()
-PrivateBuildNetApi
-PrivateBuildReact
+CIBuildNetApi
+CIBuildReact
 # Docker compose applications
 exec {
 	& docker-compose up -d --build

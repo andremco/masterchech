@@ -22,3 +22,15 @@ $test_dir = "$build_dir/test"
 
 if ([string]::IsNullOrEmpty($version)) { $version = "9.9.9"}
 if ([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
+
+## .env for react!
+
+$urlApi = $env:URLAPI
+if ([string]::IsNullOrEmpty($urlApi)) { 
+    $urlApi = "htpp://localhost:80/" 
+}
+
+$apiKeyHeader = $env:APIKEYHEADER
+if ([string]::IsNullOrEmpty($apiKeyHeader)) { 
+    $apiKeyHeader = "mykey123" 
+}

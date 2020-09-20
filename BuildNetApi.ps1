@@ -60,7 +60,7 @@ Function PublishNet{
 	}
 }
 
-Function PrivateBuildNetApi{
+Function CIBuildNetApi{
 	InitNet
 	CompileNet
 	UnitTestsNet

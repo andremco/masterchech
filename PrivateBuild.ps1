@@ -8,7 +8,7 @@ $env:VERSION = "1.0"
 . .\BuildReactApp.ps1
 
 $sw = [Diagnostics.Stopwatch]::StartNew()
-PrivateBuildNetApi
-PrivateBuildReact
+CIBuildNetApi
+CIBuildReact
 $sw.Stop()
 write-host "Build time: " $sw.Elapsed.ToString()

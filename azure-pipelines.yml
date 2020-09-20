@@ -22,7 +22,7 @@ steps:
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
     filePath: './BuildNetApi.ps1'
-    arguments: './BuildNetApi.ps1; PrivateBuildNetApi'
+    arguments: './BuildNetApi.ps1; CIBuildNetApi'
   timeoutInMinutes: 10
   continueOnError: false
   
@@ -56,7 +56,7 @@ steps:
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
-    arguments: './BuildReactApp.ps1;  PrivateBuildReact'
+    arguments: './BuildReactApp.ps1;  CIBuildReact'
   timeoutInMinutes: 10
   continueOnError: false
 
