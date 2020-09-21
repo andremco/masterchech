@@ -53,10 +53,18 @@ steps:
       latest
 
 - task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      $env:URLAPI="http://master-chech-webapi.brazilsouth.azurecontainer.io" 
+      $env:APIKEYHEADER="$(API-KEY-HEADER)"
+
+- task: PowerShell@2
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
-    arguments: '$env:URLAPI="http://master-chech-webapi.brazilsouth.azurecontainer.io"; $env:APIKEYHEADER="$(API-KEY-HEADER)"; ./BuildReactApp.ps1; CIBuildReact;'
+    arguments: './BuildReactApp.ps1; CIBuildReact;'
   timeoutInMinutes: 10
   continueOnError: false
 
