@@ -55,26 +55,16 @@ steps:
     APIKEYHEADER: $(ApiKeyHeader)
 
 - task: Docker@2
-  displayName: Build Docker Image React WebApp $(ProjectName) $(Version)
+  displayName: Build and Push Docker Image React WebApp $(ProjectName) $(Version)
   inputs:
     containerRegistry: 'Container Registry MasterChech'
     repository: 'master-chech-webapp'
-    command: build
+    command: 'buildAndPush'
     Dockerfile: '$(System.DefaultWorkingDirectory)/src/webapp/Dockerfile'
-    buildContext: '$(System.DefaultWorkingDirectory)/src/webapp/'    
-    tags:  |
+    buildContext: '$(System.DefaultWorkingDirectory)/src/webapp/' 
+    tags: |
       $(Build.BuildId)
-      latest
-
-- task: Docker@2
-  displayName: Push Docker Image React WebApp $(ProjectName) $(Version)
-  inputs:
-    containerRegistry: 'Container Registry MasterChech'
-    repository: 'master-chech-webapp'  
-    command: push
-    tags:  |
-      $(Build.BuildId)
-      latest
+      latest      
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
