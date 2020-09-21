@@ -9,15 +9,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: AzureKeyVault@1
-  displayName: Azure Key Vault $(ProjectName)
-  inputs:
-    azureSubscription: 'Visual Studio Enterprise (e945f6ed-8c00-4129-8ecd-263ec98eaf36)'
-    KeyVaultName: 'key-vault-masterchech'
-    SecretsFilter: '*'
-    RunAsPreJob: true
-
 - task: PowerShell@2
   displayName: Build Net Api $(ProjectName) $(Version)
   inputs:
