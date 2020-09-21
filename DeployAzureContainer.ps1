@@ -4,9 +4,9 @@ $apiKeyHeader = (az keyvault secret show --vault-name key-vault-masterchech --na
 $botKeyTelegram = (az keyvault secret show --vault-name key-vault-masterchech --name BOT-KEY-TELEGRAM --query value)
 $connectionString = (az keyvault secret show --vault-name key-vault-masterchech --name CONNECTION-STRING --query value)
 
-az container delete --name master-chech-webapi --resource-group masterchech
+az container delete --name master-chech-webapi --resource-group masterchech --yes -y
 
-az container delete --name master-chech-webapp --resource-group masterchech
+az container delete --name master-chech-webapp --resource-group masterchech --yes -y
 
 az container create --name master-chech-webapi --resource-group masterchech `
                     --image masterchech.azurecr.io/master-chech-webapi:latest `
