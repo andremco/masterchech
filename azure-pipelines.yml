@@ -53,14 +53,6 @@ steps:
       latest
 
 - task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
-      $env:URLAPI="http://master-chech-webapi.brazilsouth.azurecontainer.io" 
-      $env:APIKEYHEADER="$(API-KEY-HEADER)"
-
-- task: PowerShell@2
   displayName: Build React WebApp $(ProjectName) $(Version)
   inputs:
     filePath: './BuildReactApp.ps1'
