@@ -59,6 +59,8 @@ steps:
     arguments: './BuildReactApp.ps1; CIBuildReact;'
   timeoutInMinutes: 10
   continueOnError: false
+  env:
+    APIKEYHEADER: $(ApiKeyHeader)
 
 - task: Docker@2
   displayName: Build Docker Image React WebApp $(ProjectName) $(Version)
