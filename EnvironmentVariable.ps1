@@ -27,7 +27,7 @@ if ([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
 
 $urlApi = $env:URLAPI
 if ([string]::IsNullOrEmpty($urlApi)) { 
-    $urlApi = "htpp://localhost:80/" 
+    $urlApi = "htpp://localhost:5002/" 
 }
 
 $apiKeyHeader = $env:APIKEYHEADER

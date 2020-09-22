@@ -468,3 +468,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# docker-compose.override.yml
+docker-compose.override.yml
