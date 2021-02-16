@@ -38,8 +38,8 @@ steps:
     containerRegistry: 'Container Registry MasterChech'
     repository: 'master-chech-webapi'
     command: 'buildAndPush'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/Dockerfile'
-    buildContext: '$(System.DefaultWorkingDirectory)/src/api/MasterChechBotWebApi/'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/src/MasterChechBot.WebApi/Dockerfile'
+    buildContext: '$(System.DefaultWorkingDirectory)/src/api/src/MasterChechBot.WebApi/'
     tags: |
       $(Build.BuildId)
       latest
