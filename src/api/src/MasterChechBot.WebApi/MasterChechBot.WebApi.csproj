@@ -34,12 +34,11 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="BotControl\BotControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MasterChechBot.Core\MasterChechBot.Core.csproj" />
   </ItemGroup>
 </Project>

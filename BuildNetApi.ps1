@@ -53,10 +53,10 @@ Function IntegrationTestNet{
 }
 
 Function PublishNet{
-	$csProjWebApi = "$apiDir/$projectName""WebApi""/$projectName""WebApi"".csproj"
+	$csProjWebApi = "$apiDir/src/$projectName"".WebApi""/$projectName"".WebApi"".csproj"
 	# Publish Net Core Api
 	exec {
-		& dotnet publish "./$csProjWebApi" -c $projectConfig --no-restore --no-build -o "./$apiDir/$projectName""WebApi""/publish/"
+		& dotnet publish "./$csProjWebApi" -c $projectConfig --no-restore --no-build -o "./$apiDir/src/$projectName"".WebApi""/publish/"
 	}
 }
 

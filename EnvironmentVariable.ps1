@@ -11,8 +11,8 @@ $base_dir = resolve-path ./
 $source_api_dir = "$base_dir" + $apiDir
 $source_web_app_dir = "$base_dir" + $webAppDir
 
-$unitTestProjectPath = "$source_api_dir/UnitTests"
-$integrationTestProjectPath = "$source_api_dir/IntegrationTests"
+$unitTestProjectPath = -join($source_api_dir, "/test/", $projectName, ".Unit.Tests")
+$integrationTestProjectPath = -join($source_api_dir, "/test/", $projectName, ".Integration.Tests")
 $projectConfig = $env:BUILDCONFIGURATION
 $version = $env:VERSION
 $verbosity = "m"
