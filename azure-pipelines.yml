@@ -10,10 +10,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: BuildProjects
-  displayName: Build Project .Net WebApi and React
+- stage: PipelineNetProject
+  displayName: Build / Image Docker / .Net Project
   jobs:
-  - job: JobBuild
+  - job: Pipeline .Net WebApi
     steps:
     - task: PowerShell@2
       displayName: Build Net Api $(ProjectName) $(Version)
@@ -22,22 +22,21 @@ stages:
         arguments: './BuildNetApi.ps1; CIBuildNetApi'
       timeoutInMinutes: 10
       continueOnError: false
-    - task: PowerShell@2
-      displayName: Build React WebApp $(ProjectName) $(Version)
-      inputs:
-        filePath: './BuildReactApp.ps1'
-        arguments: './BuildReactApp.ps1; CIBuildReact;'
-      timeoutInMinutes: 10
-      continueOnError: false
-      env:
-        APIKEYHEADER: $(ApiKeyHeader)
 
-- stage: BuildAndPushDockerImage
-  displayName: Build and Push Docker Images to Registry
-  dependsOn: BuildProjects
-  jobs:
-  - job: JobBuildPushDockerImage
-    steps:
+    - task: PublishTestResults@2
+      displayName: Publish Test Result Net Api $(ProjectName) $(Version)
+      inputs:
+        testResultsFormat: VSTest
+        testResultsFiles: '**/*.trx'
+        failTaskOnFailedTests: true
+
+    - task: PublishCodeCoverageResults@1
+      displayName: Publish Code Coverage Net Api $(ProjectName) $(Version)
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
+        failIfCoverageEmpty: true
+
     - task: Docker@2
       displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
       inputs:
@@ -49,6 +48,21 @@ stages:
         tags: |
           $(Build.BuildId)
           latest
+
+- stage: PipelineReactProject
+  displayName: Build / Image Docker / .React Project
+  jobs: 
+  - job: Pipeline .React WebApp
+    steps:
+    - task: PowerShell@2
+      displayName: Build React WebApp $(ProjectName) $(Version)
+      inputs:
+        filePath: './BuildReactApp.ps1'
+        arguments: './BuildReactApp.ps1; CIBuildReact;'
+      timeoutInMinutes: 10
+      continueOnError: false
+      env:
+        APIKEYHEADER: $(ApiKeyHeader)    
     - task: Docker@2
       displayName: Build and Push Docker Image React WebApp $(ProjectName) $(Version)
       inputs:
@@ -61,24 +75,11 @@ stages:
           $(Build.BuildId)
           latest
 
-- stage: Publish
-  displayName: Publish Test Artifacts and Powershell for Deploy Application
-  dependsOn: BuildProjects
+- stage: PublishScriptForDeploy
+  displayName: Publish Script Poweshell For Deploy
   jobs:
-  - job: JobPublish
+  - job: Pipeline Publish Script
     steps:
-    - task: PublishTestResults@2
-      displayName: Publish Test Result Net Api $(ProjectName) $(Version)
-      inputs:
-        testResultsFormat: VSTest
-        testResultsFiles: '**/*.trx'
-        failTaskOnFailedTests: true
-    - task: PublishCodeCoverageResults@1
-      displayName: Publish Code Coverage Net Api $(ProjectName) $(Version)
-      inputs:
-        codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
-        failIfCoverageEmpty: true
     - task: PublishBuildArtifacts@1
       displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
       inputs:
