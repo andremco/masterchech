@@ -13,7 +13,7 @@ stages:
 - stage: PipelineNetProject
   displayName: Build / Image Docker / .Net Project
   jobs:
-  - job: Pipeline .Net WebApi
+  - job: PipelineWebApi
     steps:
     - task: PowerShell@2
       displayName: Build Net Api $(ProjectName) $(Version)
@@ -52,7 +52,7 @@ stages:
 - stage: PipelineReactProject
   displayName: Build / Image Docker / .React Project
   jobs: 
-  - job: Pipeline .React WebApp
+  - job: PipelineWebApp
     steps:
     - task: PowerShell@2
       displayName: Build React WebApp $(ProjectName) $(Version)
@@ -78,7 +78,7 @@ stages:
 - stage: PublishScriptForDeploy
   displayName: Publish Script Poweshell For Deploy
   jobs:
-  - job: Pipeline Publish Script
+  - job: PipelinePublishScript
     steps:
     - task: PublishBuildArtifacts@1
       displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
