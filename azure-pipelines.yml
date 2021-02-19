@@ -9,66 +9,87 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:  
-- task: PowerShell@2
-  displayName: Build Net Api $(ProjectName) $(Version)
-  inputs:
-    filePath: './BuildNetApi.ps1'
-    arguments: './BuildNetApi.ps1; CIBuildNetApi'
-  timeoutInMinutes: 10
-  continueOnError: false
-  
-- task: PublishTestResults@2
-  displayName: Publish Test Result Net Api $(ProjectName) $(Version)
-  inputs:
-    testResultsFormat: VSTest
-    testResultsFiles: '**/*.trx'
-    failTaskOnFailedTests: true
+stages:
+- stage: BuildProjects
+  displayName: Build Project .Net WebApi and React
+  jobs:
+  - job: JobBuild
+    steps:
+    - task: PowerShell@2
+      displayName: Build Net Api $(ProjectName) $(Version)
+      inputs:
+        filePath: './BuildNetApi.ps1'
+        arguments: './BuildNetApi.ps1; CIBuildNetApi'
+      timeoutInMinutes: 10
+      continueOnError: false
+    - task: PowerShell@2
+      displayName: Build React WebApp $(ProjectName) $(Version)
+      inputs:
+        filePath: './BuildReactApp.ps1'
+        arguments: './BuildReactApp.ps1; CIBuildReact;'
+      timeoutInMinutes: 10
+      continueOnError: false
+      env:
+        APIKEYHEADER: $(ApiKeyHeader)
 
-- task: PublishCodeCoverageResults@1
-  displayName: Publish Code Coverage Net Api $(ProjectName) $(Version)
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
-    failIfCoverageEmpty: true
+- stage: BuildAndPushDockerImage
+  displayName: Build and Push Docker Images to Registry
+  dependsOn: BuildProjects
+  jobs:
+  - job: JobBuildPushDockerImage
+    steps:
+    - task: Docker@2
+      displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
+      inputs:
+        containerRegistry: 'Container Registry MasterChech'
+        repository: 'master-chech-webapi'
+        command: 'buildAndPush'
+        Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/src/MasterChechBot.WebApi/Dockerfile'
+        buildContext: '$(System.DefaultWorkingDirectory)/src/api/src/MasterChechBot.WebApi/'
+        tags: |
+          $(Build.BuildId)
+          latest
+    - task: Docker@2
+      displayName: Build and Push Docker Image React WebApp $(ProjectName) $(Version)
+      inputs:
+        containerRegistry: 'Container Registry MasterChech'
+        repository: 'master-chech-webapp'
+        command: 'buildAndPush'
+        Dockerfile: '$(System.DefaultWorkingDirectory)/src/webapp/Dockerfile'
+        buildContext: '$(System.DefaultWorkingDirectory)/src/webapp/' 
+        tags: |
+          $(Build.BuildId)
+          latest
 
-- task: Docker@2
-  displayName: Build and Push Docker Image Net Api $(ProjectName) $(Version)
-  inputs:
-    containerRegistry: 'Container Registry MasterChech'
-    repository: 'master-chech-webapi'
-    command: 'buildAndPush'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/src/api/src/MasterChechBot.WebApi/Dockerfile'
-    buildContext: '$(System.DefaultWorkingDirectory)/src/api/src/MasterChechBot.WebApi/'
-    tags: |
-      $(Build.BuildId)
-      latest
+- stage: Publish
+  displayName: Publish Test Artifacts and Powershell for Deploy Application
+  dependsOn: BuildProjects
+  jobs:
+  - job: JobPublish
+    steps:
+    - task: PublishTestResults@2
+      displayName: Publish Test Result Net Api $(ProjectName) $(Version)
+      inputs:
+        testResultsFormat: VSTest
+        testResultsFiles: '**/*.trx'
+        failTaskOnFailedTests: true
+    - task: PublishCodeCoverageResults@1
+      displayName: Publish Code Coverage Net Api $(ProjectName) $(Version)
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
+        failIfCoverageEmpty: true
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
+        ArtifactName: 'script-powershell-for-deploy'
+        publishLocation: 'Container'  
 
-- task: PowerShell@2
-  displayName: Build React WebApp $(ProjectName) $(Version)
-  inputs:
-    filePath: './BuildReactApp.ps1'
-    arguments: './BuildReactApp.ps1; CIBuildReact;'
-  timeoutInMinutes: 10
-  continueOnError: false
-  env:
-    APIKEYHEADER: $(ApiKeyHeader)
 
-- task: Docker@2
-  displayName: Build and Push Docker Image React WebApp $(ProjectName) $(Version)
-  inputs:
-    containerRegistry: 'Container Registry MasterChech'
-    repository: 'master-chech-webapp'
-    command: 'buildAndPush'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/src/webapp/Dockerfile'
-    buildContext: '$(System.DefaultWorkingDirectory)/src/webapp/' 
-    tags: |
-      $(Build.BuildId)
-      latest      
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Powershell Deploy Azure $(ProjectName) $(Version)
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/DeployAzureContainer.ps1'
-    ArtifactName: 'script-powershell-for-deploy'
-    publishLocation: 'Container'      
+
+
+      
+
+    
