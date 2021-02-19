@@ -11,7 +11,7 @@ pool:
 
 stages:
 - stage: PipelineNetProject
-  displayName: Build / Image Docker / .Net Project
+  displayName: Pipeline .Net Project
   jobs:
   - job: PipelineWebApi
     steps:
@@ -50,7 +50,8 @@ stages:
           latest
 
 - stage: PipelineReactProject
-  displayName: Build / Image Docker / .React Project
+  dependsOn: [] 
+  displayName: Pipeline React Project
   jobs: 
   - job: PipelineWebApp
     steps:
@@ -76,6 +77,7 @@ stages:
           latest
 
 - stage: PublishScriptForDeploy
+  dependsOn: [] 
   displayName: Publish Script Poweshell For Deploy
   jobs:
   - job: PipelinePublishScript
