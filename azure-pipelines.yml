@@ -50,7 +50,6 @@ stages:
           latest
 
 - stage: PipelineReactProject
-  dependsOn: [] 
   displayName: Pipeline React Project
   jobs: 
   - job: PipelineWebApp
@@ -77,7 +76,6 @@ stages:
           latest
 
 - stage: PublishScriptForDeploy
-  dependsOn: [] 
   displayName: Publish Script Poweshell For Deploy
   jobs:
   - job: PipelinePublishScript
