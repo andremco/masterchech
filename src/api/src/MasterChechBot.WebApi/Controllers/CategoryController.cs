@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
-using Core.Models;
-using Core.Repositories;
+using MasterChechBot.Core.Models;
+using MasterChechBot.Core.Repositories;
 using MasterChechBotWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterChechBotWebApi.Controllers
 {
+    [ApiController]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class CategoryController : BaseController
     {

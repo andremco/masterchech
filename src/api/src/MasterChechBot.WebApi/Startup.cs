@@ -4,15 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MasterChechBotWebApi.Middlewares;
-using MasterChechBotWebApi.Filters;
-using Core.Context;
 using Microsoft.EntityFrameworkCore;
-using Core.Repositories;
 using MasterChechBotWebApi.HostedService;
-using Core.Messages;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Telegram.Bot;
+using MasterChechBot.Core.Context;
+using MasterChechBot.Core.Repositories;
+using MasterChechBot.Core.Services;
 
 namespace MasterChechBotWebApi
 {
@@ -46,8 +45,7 @@ namespace MasterChechBotWebApi
                             Email = "andremco1992@gmail.com"
                         }
                     });
-
-                c.OperationFilter<HeaderKeyFilterSwagger>();
+                //c.OperationFilter<HeaderKeyFilterSwagger>();
             });
 
             services.AddCors(o => o.AddPolicy("PolicyAPI", builder =>
@@ -57,14 +55,20 @@ namespace MasterChechBotWebApi
                        .AllowAnyHeader();
             }));
 
-            services.AddMvc();
+            services.AddControllers();
 
-            services.AddHostedService<BotTelegramHostedService>();
+            services.AddMvc();
 
             var connectionString = System.Environment.GetEnvironmentVariable("ConnectionString");
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new NullReferenceException("ConnectionString");
+            }
+
+            var botKey = System.Environment.GetEnvironmentVariable("BotKey");
+            if (string.IsNullOrEmpty(botKey))
+            {
+                throw new NullReferenceException("BotKey");
             }
 
             services.AddDbContext<Context>(options => {
@@ -73,7 +77,9 @@ namespace MasterChechBotWebApi
             });
 
             services.AddScoped<UnitOfWork>();
-            services.AddScoped<MessageOnShipBusiness>();
+            services.AddScoped<MessageOnKitchen>();
+            services.AddScoped<ITelegramBotClient>(c => new TelegramBotClient(botKey));
+            services.AddHostedService<BotTelegramHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,12 +94,16 @@ namespace MasterChechBotWebApi
                     c.SwaggerEndpoint("/swagger/v1/swagger.json",
                         "Zuero Top Bot");
                 });
-
             }
 
+            app.UseRouting();
+            app.UseHttpsRedirection();
             app.UseCors("PolicyAPI");
-
-            app.UseMiddleware<APIKeyMiddleware>();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            //app.UseMiddleware<APIKeyMiddleware>();
         }
     }
 }

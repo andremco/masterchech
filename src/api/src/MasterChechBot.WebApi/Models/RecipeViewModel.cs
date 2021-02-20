@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MasterChechBot.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Core.Models;
 
 namespace MasterChechBotWebApi.Models
 {
-    public class DescriptionViewModel
+    public class RecipeViewModel
     {
         public int Id { get; set; }
 
@@ -17,16 +17,15 @@ namespace MasterChechBotWebApi.Models
         [MaxLength(250, ErrorMessage = "O tamanho do campo descrição é até 250 caracteres")]
         public string Description { get; set; }
 
-        public static ICollection<DescriptionViewModel> Convert(ICollection<Description> descriptions)
+        public static ICollection<RecipeViewModel> Convert(ICollection<Recipe> recipes)
         {
+            var destiny = new List<RecipeViewModel>();
 
-            var destiny = new List<DescriptionViewModel>();
-
-            if (descriptions != null)
+            if (recipes != null)
             {
-                foreach (var origin in descriptions)
+                foreach (var origin in recipes)
                 {
-                    destiny.Add(new DescriptionViewModel()
+                    destiny.Add(new RecipeViewModel()
                     {
                         Id = origin.Id,
                         CategoryId = origin.CategoryId,

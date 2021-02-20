@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Repositories
+namespace MasterChechBot.Core.Repositories
 {
     public class GenericRepository<TEntity> where TEntity : class
     {

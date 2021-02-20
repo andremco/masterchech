@@ -13,7 +13,7 @@ export function updateCategories(categories) {
 export function getAllCategories() {
     return dispatch => {
         dispatch(loading());
-        return API.get("category")
+        return API.get("api/category")
             .then(res => res.json())
             .then(response => {
                 if(response && response.data){

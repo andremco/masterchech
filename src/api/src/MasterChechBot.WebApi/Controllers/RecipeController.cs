@@ -1,28 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Core.Models;
-using Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using MasterChechBotWebApi.Models;
+using MasterChechBot.Core.Repositories;
+using MasterChechBot.Core.Models;
 
 namespace MasterChechBotWebApi.Controllers
 {
+    [ApiController]
+    [Produces("application/json")]
     [Route("api/[controller]")]
-    public class DescriptionController : BaseController
+    public class RecipeController : BaseController
     {
         private readonly UnitOfWork _uow;
 
-        public DescriptionController(UnitOfWork uow)
+        public RecipeController(UnitOfWork uow)
         {
             _uow = uow;
         }
 
-        // GET api/description
+        // GET api/recipe
         [HttpGet]
         public IActionResult Get()
         {
-            var descriptions = DescriptionViewModel.Convert(_uow.DescriptionRepository.Get().OrderBy(d => d.CategoryId).ToList());
+            var descriptions = RecipeViewModel.Convert(_uow.RecipeRepository.Get().OrderBy(d => d.CategoryId).ToList());
 
             if (descriptions != null)
             {
@@ -32,11 +33,11 @@ namespace MasterChechBotWebApi.Controllers
             return Response();
         }
 
-        // GET api/description/5
+        // GET api/recipe/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var description = _uow.DescriptionRepository.GetByID(id);
+            var description = _uow.RecipeRepository.GetByID(id);
 
             if (description != null)
             {
@@ -46,13 +47,13 @@ namespace MasterChechBotWebApi.Controllers
             return Response();
         }
 
-        // POST api/description
+        // POST api/recipe
         [HttpPost]
-        public IActionResult Post([FromBody]DescriptionViewModel descriptionVm)
+        public IActionResult Post([FromBody]RecipeViewModel descriptionVm)
         {
             if (ModelState.IsValid)
             {
-                var description = new Description()
+                var description = new Recipe()
                 {
                     CategoryId = descriptionVm.CategoryId,
                     Descript = descriptionVm.Description,
@@ -60,7 +61,7 @@ namespace MasterChechBotWebApi.Controllers
                 };
 
                 //TODO validar para não criar uma mesma descrição através do nome
-                _uow.DescriptionRepository.Insert(description);
+                _uow.RecipeRepository.Insert(description);
                 _uow.Save();
 
                 return Response();
@@ -69,13 +70,13 @@ namespace MasterChechBotWebApi.Controllers
             return Response();
         }
 
-        // PUT api/description
+        // PUT api/recipe
         [HttpPut]
-        public IActionResult Put([FromBody]DescriptionViewModel descriptionVm)
+        public IActionResult Put([FromBody]RecipeViewModel descriptionVm)
         {
             if (ModelState.IsValid)
             {
-                var description = _uow.DescriptionRepository.GetByID(descriptionVm.Id);
+                var description = _uow.RecipeRepository.GetByID(descriptionVm.Id);
 
                 if (description != null)
                 {
@@ -83,7 +84,7 @@ namespace MasterChechBotWebApi.Controllers
                     description.Descript = descriptionVm.Description;
                     description.RegisterUpdate = DateTime.Now;
 
-                    _uow.DescriptionRepository.Update(description);
+                    _uow.RecipeRepository.Update(description);
                     _uow.Save();
                 }
             }
@@ -91,11 +92,11 @@ namespace MasterChechBotWebApi.Controllers
             return Response();
         }
 
-        // DELETE api/description/5
+        // DELETE api/recipe/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _uow.DescriptionRepository.Delete(id);
+            _uow.RecipeRepository.Delete(id);
             _uow.Save();
             return Response();
         }

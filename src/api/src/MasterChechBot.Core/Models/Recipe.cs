@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Models
+namespace MasterChechBot.Core.Models
 {
-    [Table("description")]
-    public class Description
+    [Table("Recipe")]
+    public class Recipe
     {
         public int Id { get; set; }
 

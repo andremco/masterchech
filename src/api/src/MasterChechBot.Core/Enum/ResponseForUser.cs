@@ -1,9 +1,8 @@
-﻿namespace Core.Enum
+﻿namespace MasterChechBot.Core.Enum
 {
-    public enum ResponseForUserEnum
+    public enum ResponseForUser
     {
         None,
-        Trouxa,
         CulinariaDoDia
     }
 }

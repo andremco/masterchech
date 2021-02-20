@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MasterChechBotWebApi.Controllers
 {
-    public abstract class BaseController : Controller
+    public abstract class BaseController : ControllerBase
     {
         [ApiExplorerSettings(IgnoreApi = true)]
         protected new IActionResult Response(object obj = null)

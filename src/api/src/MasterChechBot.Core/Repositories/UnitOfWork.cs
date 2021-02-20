@@ -1,8 +1,7 @@
-﻿using System;
-using Core.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using MasterChechBot.Core.Models;
+using System;
 
-namespace Core.Repositories
+namespace MasterChechBot.Core.Repositories
 {
     public class UnitOfWork : IDisposable
     {
@@ -16,7 +15,7 @@ namespace Core.Repositories
 
         private GenericRepository<Category> _categoryRepository;
 
-        private GenericRepository<Description> _descriptionRepository;
+        private GenericRepository<Recipe> _recipeRepository;
 
         public GenericRepository<Category> CategoryRepository
         {
@@ -30,15 +29,15 @@ namespace Core.Repositories
             }
         }
 
-        public GenericRepository<Description> DescriptionRepository
+        public GenericRepository<Recipe> RecipeRepository
         {
             get
             {
-                if (_descriptionRepository == null)
+                if (_recipeRepository == null)
                 {
-                    _descriptionRepository = new GenericRepository<Description>(_context);
+                    _recipeRepository = new GenericRepository<Recipe>(_context);
                 }
-                return _descriptionRepository;
+                return _recipeRepository;
             }
         }
 

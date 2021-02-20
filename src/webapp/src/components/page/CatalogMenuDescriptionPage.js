@@ -48,7 +48,7 @@ class CatalogMenuDescriptionPage extends React.Component {
     onSubmit = (values, props) => {
         props.setSubmitting(false);
 
-        var data = {"categoryId": values.category, "description": values.description}
+        var data = {"categoryId": parseInt(values.category), "description": values.description}
 
         this.props.actions.createMenuDescription(data, this.openOrCloseModalSuccess);
     }

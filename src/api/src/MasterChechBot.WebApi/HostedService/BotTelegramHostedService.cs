@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Context;
-using Core.Enum;
-using Core.Messages;
-using Core.Repositories;
-using Microsoft.Extensions.Configuration;
+using MasterChechBot.Core.Context;
+using MasterChechBot.Core.Enum;
+using MasterChechBot.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -18,35 +14,21 @@ namespace MasterChechBotWebApi.HostedService
 {
     public class BotTelegramHostedService : IHostedService
     {
-        private IConfiguration _configuration;
-        private readonly IServiceProvider _services;
         private readonly ILogger _logger;
         private readonly ITelegramBotClient _bot;
-        private readonly MessageOnShipBusiness _messageOnShipBusiness;
-
-        public BotTelegramHostedService(IConfiguration configuration, IServiceProvider services,
-            ILogger<BotTelegramHostedService> logger)
+        private readonly MessageOnKitchen _messageOnShipBusiness;
+        
+        public BotTelegramHostedService(ILogger<BotTelegramHostedService> logger, IServiceProvider serviceProvider)
         {
-            _configuration = configuration;
-            _services = services;
             _logger = logger;
 
-            var botKey = System.Environment.GetEnvironmentVariable("BotKey");
-            if (string.IsNullOrEmpty(botKey))
+            using (var scope = serviceProvider.CreateScope())
             {
-                throw new NullReferenceException("BotKey");
+                var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+                var context = new Context(connectionString);
+                _bot = scope.ServiceProvider.GetService<ITelegramBotClient>();
+                _messageOnShipBusiness = new MessageOnKitchen(context);
             }
-            _bot = new TelegramBotClient(botKey);
-
-            var connectionString = System.Environment.GetEnvironmentVariable("ConnectionString");
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new NullReferenceException("ConnectionString");
-            }
-            var context = new Context(connectionString);
-
-            var uow = new UnitOfWork(context);
-            _messageOnShipBusiness = new MessageOnShipBusiness(uow);
         }
 
         private void BotTelegram()
@@ -58,20 +40,12 @@ namespace MasterChechBotWebApi.HostedService
             _bot.StartReceiving();
         }
 
-        async void Bot_OnMessage(object sender, MessageEventArgs e)
+        public async void Bot_OnMessage(object sender, MessageEventArgs e)
         {
             var text = e.Message.Text;
 
             if (text != null)
             {
-                if (BotResponse.BotResponse.IsResponseTimeForTrouxa)
-                {
-                    var phrase = _messageOnShipBusiness.GetPhrase();
-                    await BotResponse.BotResponse.ResponseTrouxa(_bot, e.Message.Chat, phrase);
-                    BotResponse.BotResponse.IsResponseTimeForTrouxa = false;
-                    return;
-                }
-
                 if (_messageOnShipBusiness.IsCommandForBot(text))
                 {
                     _logger.LogInformation($"Received a text message for user - {e.Message.From.Id} {e.Message.From.FirstName} {e.Message.From.LastName}.");
@@ -80,12 +54,7 @@ namespace MasterChechBotWebApi.HostedService
 
                     switch (responseForUserEnum)
                     {
-                        case ResponseForUserEnum.Trouxa:
-                            BotResponse.BotResponse.IsResponseTimeForTrouxa = true;
-                            await BotResponse.BotResponse.ResponseInfoOfVictim(_bot, e.Message.Chat);
-                            break;
-
-                        case ResponseForUserEnum.CulinariaDoDia:
+                        case ResponseForUser.CulinariaDoDia:
                             var culinariaDoDia = _messageOnShipBusiness.GetRandomRecipe();
                             if (!string.IsNullOrEmpty(culinariaDoDia))
                             {
