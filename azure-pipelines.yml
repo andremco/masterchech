@@ -28,7 +28,7 @@ stages:
       inputs:
         codeCoverageTool: 'Cobertura'
         summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/test/coverage/coverage.cobertura.xml'
-        failIfCoverageEmpty: true
+        failIfCoverageEmpty: false
 
     - task: PublishTestResults@2
       displayName: Publish Test Result Net Api $(ProjectName) $(Version)
